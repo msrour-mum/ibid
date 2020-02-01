@@ -22,6 +22,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+
+
+process.env.NODE_ENV = 'development';
+const config = require('./config/config.js');
+app.get('/', (req, res) => {
+  res.json(global.gConfig);
+});
+
+
+//Config call test
+console.log("global.gConfig.node_port : ",global.gConfig.node_port)
+
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -37,5 +52,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+app.listen(global.gConfig.node_port, function () {
+  console.log("Running RestHub on port " + global.gConfig.node_port);
+});
 module.exports = app;
