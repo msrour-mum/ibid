@@ -52,3 +52,5 @@ Thumbs.db
 server/.idea/
 
 server/logs.log
+
+server/.vscode/

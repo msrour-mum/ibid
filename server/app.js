@@ -7,7 +7,10 @@ var fs = require('fs');
 var helmet = require('helmet');
 var cors = require('cors');
 
-var indexRouter = require('./routes/index');
+//Import the mongoose module
+var mongoose = require('mongoose');
+
+var auctionsRouter = require('./routes/auctions');
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -22,6 +25,14 @@ app.use("*", (req, res, next) =>
   };
   next();
 });
+
+//Set up default mongoose connection
+//var mongoDB = 'mongodb://localhost/27017/iBid'; 
+var mongoDB = 'mongodb+srv://ibid:ibid135@cluster0-g1iny.mongodb.net/iBid?retryWrites=true&w=majority';
+mongoose.connect(mongoDB, { 
+  useNewUrlParser: true,
+  useUnifiedTopology: true, 
+  useCreateIndex: true});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,7 +49,7 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/auctions', auctionsRouter);
 app.use('/users', usersRouter);
 
 
@@ -60,6 +71,7 @@ console.log("global.gConfig.node_port : ",global.gConfig.node_port)
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {
