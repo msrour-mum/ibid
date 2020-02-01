@@ -46,9 +46,7 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Configration
-/server/Config/config.json
-/web/src/assets/config
+
 
 
 server/.idea/

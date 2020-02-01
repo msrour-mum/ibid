@@ -6,13 +6,19 @@ import { ListComponent } from './list/list.component';
 import { BidComponent } from './bid/bid.component';
 import { CommentsComponent } from './comments/comments.component';
 import { RatingComponent } from './rating/rating.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [CreateComponent, ViewComponent, ListComponent, BidComponent, CommentsComponent, RatingComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
+  ] ,
+  exports:[
+    CreateComponent, ViewComponent, ListComponent, BidComponent, CommentsComponent, RatingComponent
   ]
 })
 export class AuctionsModule { }

@@ -1,1 +1,30 @@
-<p>create works!</p>
+<form [formGroup]="frm" (ngSubmit)="OnSubmit()">
+  <div>
+    <div>
+      <samp><label for="title">title</label></samp>
+      <samp><input type="text" id="title" name="expiry_date" [formControl]="frm.get('title')"></samp>
+      <samp *ngIf="!frm.get('title').valid">
+        *
+      </samp>
+    </div>
+    <div>
+      <samp><label for="init_price">init_price</label></samp>
+      <samp><input type="number" required name="price" min="0" step="any" id="init_price" name="init_price"
+                   [formControl]="frm.get('init_price')"></samp>
+      <samp *ngIf="!frm.get('init_price').valid">
+        Invalid price
+      </samp>
+    </div>
+    <div>
+      <samp><label for="expiry_date">expiry_date</label></samp>
+      <samp><input type="date" [ngModel]="currentDate | date:'yyyy-MM-dd'" id="expiry_date" name="expiry_date"
+                   [formControl]="frm.get('expiry_date')"></samp>
+      <samp *ngIf="!frm.get('expiry_date').valid">
+        expiry date is not valid
+      </samp>
+    </div>
+    <div>
+      <button type="submit" [disabled]="!frm.valid">Submit</button>
+    </div>
+  </div>
+</form>

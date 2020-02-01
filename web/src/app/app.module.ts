@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import {AppConfig} from './config/app.config';
 import { APP_INITIALIZER } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
+import {CreateComponent} from './auctions/create/create.component';
+import {AuctionsModule} from './auctions/auctions.module';
 
 export function initializeApp(appConfig: AppConfig) {
   return () => appConfig.load();
@@ -14,11 +16,13 @@ export function initializeApp(appConfig: AppConfig) {
   declarations: [
     AppComponent
 
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule ,
-    HttpClientModule
+    HttpClientModule ,
+    AuctionsModule
   ],
   providers: [AppConfig,
     { provide: APP_INITIALIZER,

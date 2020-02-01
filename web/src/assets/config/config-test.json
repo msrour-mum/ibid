@@ -1,0 +1,5 @@
+{
+  "config_id": "test",
+  "node_port": 4000,
+  "database": "my-app-db-dev"
+}
