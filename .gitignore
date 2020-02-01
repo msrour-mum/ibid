@@ -50,3 +50,5 @@ Thumbs.db
 
 
 server/.idea/
+
+server/logs.log
