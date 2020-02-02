@@ -40,7 +40,7 @@ export class CreateComponent implements OnInit {
 
   ngOnInit() {
     console.log('Onine'),
-      this.dataService.sendGetRequest().subscribe((data: any[]) => {
+      this.dataService.list().subscribe((data: any[]) => {
         console.log(data);
         this.incomeData = data;
       });
@@ -49,7 +49,7 @@ export class CreateComponent implements OnInit {
     this.auction = this.frm.value;
     this.auction.bid_price = this.auction.init_price;
     this.auction.user = {name: 'Moustafa Zein', email: 'mzein@mum.ed'};
-    this.dataService.Add(this.auction) .subscribe(resp => {
+    this.dataService.save(this.auction) .subscribe(resp => {
       console.log('add auction : ',resp);
     });
   }
