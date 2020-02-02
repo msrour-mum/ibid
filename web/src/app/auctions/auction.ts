@@ -4,6 +4,7 @@ export interface Auction {
   title: string;
   description: string;
   creation_date: Date;
+  modification_date: Date;
   expiry_date: Date;
   init_price: number;
   bid_price: number;
@@ -17,6 +18,7 @@ export interface Auction {
   status: string; //Initiated | Open | Solid | Expired'
   winner: { name: string, email: string };
   photosUrl: [string];
+  location:[number];
 
   /* _id: string;
    bid_price: number;

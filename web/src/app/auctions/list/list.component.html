@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>Auctions</h2>
+  <h2>Auctions Lista</h2>
   <div class="row">
 
     <div class="col-sm-12 col-md-8 order-line-box">
@@ -58,9 +58,10 @@
                   <form method="post" action="/cart">
                     <input type="hidden" value="remove" name="addItem" id="addItem"/>
                     <input type="hidden" value="cartItem.product.id" name="productId" id="addItemProductId"/>
-                    <button type="submit" class="btn btn-primary">
+                    <a [routerLink]="['/auctions',1]"  class="btn btn-primary">
                       Bid
-                    </button>
+                    </a>
+
                   </form>
                 </div>
               </div>
@@ -68,6 +69,7 @@
           </div>
         </div>
       </div>
+
       <div var="cartItem">
         <div class="card border-info mb-3">
           <div class="card-header col-12">
