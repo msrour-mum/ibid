@@ -1,11 +1,8 @@
-var User = require('../models/users');
-
-
+const User = require('../models/users');
 
 const recordLimit = 10;
 
-
-var find = async function(req, res, next)
+const find = async function(req, res, next)
 {
     try{
 
@@ -30,7 +27,7 @@ var find = async function(req, res, next)
     }
 }
 
-var findOne = async function(req, res, next)
+const findOne = async function(req, res, next)
 {
     try{
        
@@ -48,28 +45,7 @@ var findOne = async function(req, res, next)
    
 }
 
-var save = async function(req, res,next)
-{
-    try{
-        const user = new User(req.body);
-        var result =  await user.save();  
-          
-      
-        res.send(result);
-        res.end();
-       // return res.status(200,result).end();
-    }catch(err)
-    {
-        return res.error(500,1000,err.message);
-    }
-}
-
-
-
-
-    
 module.exports = {
     find,
-    findOne,
-    save
+    findOne
 };

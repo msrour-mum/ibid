@@ -11,6 +11,10 @@ import {ListComponent} from "./auctions/list/list.component";
 import {PreloadAllModules, RouterModule} from "@angular/router";
 import {CreateComponent} from './auctions/create/create.component';
 import {BidComponent} from './auctions/bid/bid.component';
+import {LoginComponent} from "./users/login/login.component";
+import {SignupComponent} from "./users/signup/signup.component";
+import {ReactiveFormsModule} from "@angular/forms";
+import {AuthenticationService} from "./users/services/authentication.service";
 
 export function initializeApp(appConfig: AppConfig) {
   return () => appConfig.load();
@@ -22,6 +26,8 @@ const routes = [
   {path: 'auctions/:auctionId', component: BidComponent  },
   {path: 'auctions', component: CreateComponent  },
   {path: 'profile', component: ListComponent  },
+  {path: 'login', component: LoginComponent  },
+  {path: 'signup', component: SignupComponent},
   //{path: 'new', component: ListComponent, pathMatch: 'full' },
   //{path: 'users/:id/auctions/:auctionId', component: ListComponent, pathMatch: 'full'},//ToDo: add new component
   //{path:'auctions', loadChildren: ()=> import('./auctions/auctions.module').then(m=> m.AuctionsModule)},
@@ -29,22 +35,25 @@ const routes = [
 
 @NgModule({
   declarations: [
-    AppComponent
-
-
+    AppComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule ,
-    HttpClientModule ,
+    AppRoutingModule,
+    HttpClientModule,
     AuctionsModule,
-    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})
+    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules}),
+    ReactiveFormsModule
   ],
   providers: [AppConfig,
     { provide: APP_INITIALIZER,
       useFactory: initializeApp,
-      deps: [AppConfig], multi: true }
-      ],
+      deps: [AppConfig], multi: true
+    },
+    AuthenticationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

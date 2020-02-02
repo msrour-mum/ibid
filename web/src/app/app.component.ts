@@ -3,7 +3,7 @@ import {AppConfig} from './config/app.config';
 
 @Component({
   selector: 'app-root',
-   templateUrl: './app.component.html',
+ templateUrl: './app.component.html',
   //template:`  <app-create></app-create>`,
   //template:`  <app-list></app-list>`,
   styleUrls: ['./app.component.css']
