@@ -8,6 +8,8 @@ import { CommentsComponent } from './comments/comments.component';
 import { RatingComponent } from './rating/rating.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from '../app-routing.module';
+//import {MomentModule} from '../utility/pipes/date';
+import {UtilModule} from '../util/util.module';
 
 const routes = [
   {path: ':auctionId', component: BidComponent, pathMatch: 'full' },
@@ -20,10 +22,13 @@ const routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    //MomentModule ,
+
+    UtilModule
     //RouterModule.forChild(routes)
   ],
-  exports:[
+  exports: [
     CreateComponent, ViewComponent, ListComponent, BidComponent, CommentsComponent, RatingComponent
   ]
 })
