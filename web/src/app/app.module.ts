@@ -11,6 +11,7 @@ import {ListComponent} from "./auctions/list/list.component";
 import {PreloadAllModules, RouterModule} from "@angular/router";
 import {CreateComponent} from './auctions/create/create.component';
 import {BidComponent} from './auctions/bid/bid.component';
+//import {MomentModule} from './utility/pipes/date';
 
 export function initializeApp(appConfig: AppConfig) {
   return () => appConfig.load();
@@ -38,6 +39,7 @@ const routes = [
     AppRoutingModule ,
     HttpClientModule ,
     AuctionsModule,
+   // MomentModule,
     RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})
   ],
   providers: [AppConfig,
@@ -45,6 +47,7 @@ const routes = [
       useFactory: initializeApp,
       deps: [AppConfig], multi: true }
       ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

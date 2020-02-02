@@ -19,6 +19,11 @@ export class AuctionsApiService {
     const options = {params: new HttpParams({fromString: '_page=1&_limit=30'})};
     return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(retry(3), catchError(this.handleError));
   }
+  public loadOne(auctionId: any) {
+    const options = {params: new HttpParams({fromString: '_page=1&_limit=30'})};
+    console.log(this.REST_API_SERVER + '/' + auctionId)
+    return this.httpClient.get<Auction[]>(this.REST_API_SERVER + '/' + auctionId, options).pipe(retry(3), catchError(this.handleError));
+  }
   public search(query) {
     const options = {params: new HttpParams({fromString: '_page=1&_limit=30'})};
     return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(retry(3), catchError(this.handleError));
