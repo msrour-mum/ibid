@@ -54,12 +54,11 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
 
-    console.log(this.signupForm.invalid);
-    console.dir(this.signupForm.errors);
-
     this.subs.add(this.authService.register(this.signupForm.value)
       .subscribe(
-        data => console.log(data),
+        data => {
+          this.router.navigate(['/login']);
+        },
         error => console.log(error)
       ));
 
