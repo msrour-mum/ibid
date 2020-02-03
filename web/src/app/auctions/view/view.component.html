@@ -1,1 +1,192 @@
-<p>view works!</p>
+<div class="container">
+  <h2>Bid2</h2>
+  <div class="row">
+    <!--Bid-->
+
+    <div class="col-sm-12 col-md-8 order-line-box">
+
+      <!-- Bid -->
+      <div var="cartItem row">
+        <div class="card border-info mb-3">
+          <div class="card-header col-12">
+            <div class="row">
+              <div class="col user-prof-info-bar">
+                <a href="/user">
+                  <img src="../../../assets/images/profile-photo.png" class="user-small-img">
+                  <i class="prd-lbl">{{item.user.name}}</i>
+                </a>
+
+              </div>
+              <div class="col float-right">
+                <div class="float-right">
+                  {{item.status}}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <i class="prd-lbl">Begin</i> <i>{{item.creation_date | timeAgo }}</i>
+              </div>
+              <div class="col float-right">
+                <div class="float-right">
+                  <i class="prd-lbl ">Expiry date</i> <i>{{item.expiry_date | timeAgo}}</i>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <i class="prd-lbl">Price</i><i>{{item.bid_price|currency}}</i>
+              </div>
+              <div class="col">
+                <div class="float-right">
+                  <i class="prd-lbl">Bid price</i> <i>{{item.init_price |currency}}</i>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="card-body col-12">
+            <div class="row">
+              <img src="cartItem.product.imageUrl" class="cart-prd-img col-3">
+              <div class="col-9">
+                <h4 class="card-title">{{item.title}}</h4>
+                <p class="card-text">{{item.description}}</p>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="order-line-cmd">
+                                <span class="prodcut-cmd-icon" title="likes">
+
+                                    <form [formGroup]="frmLike" (ngSubmit)="OnLike()" class="col"
+                                          style="display: inline">
+
+                                        <button type="submit" class="btn btn-primary fas fa-plus">
+                                            {{item.count_like}} </button>
+
+
+                                    </form>
+                                </span>
+
+                <span class="prodcut-cmd-icon" title="dislikes">
+
+                                    <form [formGroup]="frmDislike" (ngSubmit)="OnDislike()" class="col"
+                                          style="display: inline">
+                                        <button type="submit" class="btn btn-danger fas fa-minus">
+                                            {{item.count_dislike}} </button>
+                                    </form>
+                                </span>
+              </div>
+              <div class="order-line-cmd-rgt">
+                <div class="prodcut-cmd-icon ">
+
+                  <form [formGroup]="frmBid" (ngSubmit)="OnBid()">
+
+                    <input type="number" [formControl]="frmBid.get('bid')" name="bid" id="bid"
+                           class="mr-lg-3" />
+                    <button type="submit" class="btn btn-primary">
+                      Confirm Bid
+                    </button>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+
+
+
+        </div>
+          <div class="row">
+            <div class="col-12">
+              <label >{{lblBidMsg}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Bid History -->
+      <app-bid ></app-bid>
+
+
+
+    </div>
+    <!--Comments-->
+    <div class="col-sm-12 col-xs-12 col-md-4">
+      <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">
+          <h6><small class="stick-rgt-25">45 comments</small> Comments </h6>
+        </div>
+        <div class="card-body">
+          <div class="box">
+            <h6>Add Comments</h6>
+            <form>
+              <div class="form-group">
+                <label for="exampleTextarea">Write what do you think about this auction or
+                  seller</label>
+                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Post</button>
+            </form>
+          </div>
+
+          <div class="comments-list">
+            <div class="media">
+              <p class="stick-rgt-25"><small>5 days ago</small></p>
+              <a class="media-left" href="#">
+                <img src="http://lorempixel.com/40/40/people/1/">
+              </a>
+              <div class="media-body mr-lft-5">
+
+                <h4 class="media-heading user_name">Baltej Singh</h4>
+                Wow! this is really great.
+
+                <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
+              </div>
+            </div>
+            <div class="media">
+              <p class="stick-rgt-25"><small>5 days ago</small></p>
+              <a class="media-left" href="#">
+                <img src="http://lorempixel.com/40/40/people/2/">
+              </a>
+              <div class="media-body mr-lft-5">
+
+                <h4 class="media-heading user_name">Baltej Singh</h4>
+                Wow! this is really great.
+
+                <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
+              </div>
+            </div>
+            <div class="media">
+              <p class="stick-rgt-25"><small>5 days ago</small></p>
+              <a class="media-left" href="#">
+                <img src="http://lorempixel.com/40/40/people/3/">
+              </a>
+              <div class="media-body mr-lft-5">
+
+                <h4 class="media-heading user_name">Baltej Singh</h4>
+                Wow! this is really great.
+
+                <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
+              </div>
+            </div>
+            <div class="media">
+              <p class="stick-rgt-25"><small>5 days ago</small></p>
+              <a class="media-left" href="#">
+                <img src="http://lorempixel.com/40/40/people/4/">
+              </a>
+              <div class="media-body mr-lft-5">
+
+                <h4 class="media-heading user_name">Baltej Singh</h4>
+                Wow! this is really great.
+
+                <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,17 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { APP_INITIALIZER } from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+
 import {PreloadAllModules, RouterModule} from "@angular/router";
 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AppConfig} from './config/app.config';
+
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuctionsModule} from './auctions/auctions.module';
 import {ListComponent} from "./auctions/list/list.component";
 import {CreateComponent} from './auctions/create/create.component';
 import {BidComponent} from './auctions/bid/bid.component';
+import {LoginComponent} from "./users/login/login.component";
+import {SignupComponent} from "./users/signup/signup.component";
+import {ReactiveFormsModule} from "@angular/forms";
+import {AuthenticationService} from "./users/services/authentication.service";
+import {ViewComponent} from './auctions/view/view.component';
+import {JwtInterceptor} from "./util/jwt.interceptor";
 
 
 export function initializeApp(appConfig: AppConfig) {
@@ -21,9 +29,11 @@ export function initializeApp(appConfig: AppConfig) {
 const routes = [
   {path: '', component: ListComponent,pathMatch: 'full' },
   {path: 'home', component: ListComponent  },
-  {path: 'auctions/:auctionId', component: BidComponent  },
+  {path: 'auctions/:auctionId', component: ViewComponent  },
   {path: 'auctions', component: CreateComponent  },
   {path: 'profile', component: ListComponent  },
+  {path: 'login', component: LoginComponent  },
+  {path: 'signup', component: SignupComponent},
   //{path: 'new', component: ListComponent, pathMatch: 'full' },
   //{path: 'users/:id/auctions/:auctionId', component: ListComponent, pathMatch: 'full'},//ToDo: add new component
   //{path:'auctions', loadChildren: ()=> import('./auctions/auctions.module').then(m=> m.AuctionsModule)},
@@ -31,20 +41,27 @@ const routes = [
 
 @NgModule({
   declarations: [
-    AppComponent
-  ],   
+    AppComponent,
+    LoginComponent,
+    SignupComponent
+  ],
   imports: [
     BrowserModule,
-    AppRoutingModule ,
-    HttpClientModule ,
+    AppRoutingModule,
+    HttpClientModule,
     AuctionsModule,
-    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})
+    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules}),
+    ReactiveFormsModule
   ],
   providers: [AppConfig,
     { provide: APP_INITIALIZER,
       useFactory: initializeApp,
-      deps: [AppConfig], multi: true }
-      ],
+      deps: [AppConfig], multi: true
+    },
+    AuthenticationService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,20 +1,21 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var fs = require('fs');
-var helmet = require('helmet');
-var cors = require('cors');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const fs = require('fs');
+const helmet = require('helmet');
+const cors = require('cors');
 
 //Import the mongoose module
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 var auctionsRouter = require('./routes/auctions');
 var usersRouter = require('./routes/users');
 var commentsRouter = require('./routes/comments');
+const authRouter = require('./routes/auth');
 
-var app = express();
+const app = express();
 
 app.use("*", (req, res, next) =>
 {
@@ -53,8 +54,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/auctions/:id/comments',commentsRouter);
 app.use('/auctions', auctionsRouter);
 app.use('/users', usersRouter);
-
-
+app.use('/auth', authRouter);
 
 process.env.NODE_ENV = 'development';
 const config = require('./config/config.js');
@@ -65,8 +65,6 @@ app.get('/', (req, res) => {
 
 //Config call test
 console.log("global.gConfig.node_port : ",global.gConfig.node_port)
-
-
 
 
 // catch 404 and forward to error handler

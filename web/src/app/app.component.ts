@@ -1,17 +1,14 @@
 import { Component } from '@angular/core';
-import {AppConfig} from './config/app.config';
+import {AuthenticationService} from "./users/services/authentication.service";
 
 @Component({
   selector: 'app-root',
-   templateUrl: './app.component.html',
-  //template:`  <app-create></app-create>`,
-  //template:`  <app-list></app-list>`,
+ templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'web';
- // protected apiServer = AppConfig.settings.apiServer;
-  constructor() {
+  constructor(private authService: AuthenticationService) {
     console.log('Hi there ');
 
     //Test call config

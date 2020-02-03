@@ -19,6 +19,11 @@ export class AuctionsApiService {
     const options = {params: new HttpParams({fromString: '_page=1&_limit=30'})};
     return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(retry(3), catchError(this.handleError));
   }
+  public loadOne(auctionId: any) {
+    const options = {params: new HttpParams({fromString: '_page=1&_limit=30'})};
+    console.log(this.REST_API_SERVER + '/' + auctionId)
+    return this.httpClient.get<Auction[]>(this.REST_API_SERVER + '/' + auctionId, options).pipe(retry(3), catchError(this.handleError));
+  }
   public search(query) {
     const options = {params: new HttpParams({fromString: '_page=1&_limit=30'})};
     return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(retry(3), catchError(this.handleError));
@@ -47,8 +52,24 @@ export class AuctionsApiService {
         catchError(this.handleError)
       );
   }
-  bid(auction: Auction): Observable<Auction> {
-    return this.httpClient.post<Auction>(this.REST_API_SERVER, auction)
+  bid(auctionId: any, bidItem: any): Observable<Auction> {
+    console.log('u : ',this.REST_API_SERVER+ '/' + auctionId+ '/bids')
+    return this.httpClient.post<Auction>(this.REST_API_SERVER+ '/' + auctionId+ '/bids', bidItem)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  like(auctionId: any, bidItem: any): Observable<Auction> {
+    return this.httpClient.post<Auction>(this.REST_API_SERVER+ '/' + auctionId+ '/likes', bidItem)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  dislike(auctionId: any, bidItem: any): Observable<Auction> {
+    console.log('u : ',this.REST_API_SERVER+ '/' + auctionId+ '/bids')
+    return this.httpClient.post<Auction>(this.REST_API_SERVER+ '/' + auctionId+ '/bids', bidItem)
       .pipe(
         catchError(this.handleError)
       );
