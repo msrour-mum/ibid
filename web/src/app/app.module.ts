@@ -14,10 +14,10 @@ import {AuctionsModule} from './auctions/auctions.module';
 import {ListComponent} from "./auctions/list/list.component";
 import {CreateComponent} from './auctions/create/create.component';
 import {BidComponent} from './auctions/bid/bid.component';
-import {LoginComponent} from "./users/login/login.component";
-import {SignupComponent} from "./users/signup/signup.component";
+import {LoginComponent} from "./authentication/login/login.component";
+import {SignupComponent} from "./authentication/signup/signup.component";
 import {ReactiveFormsModule} from "@angular/forms";
-import {AuthenticationService} from "./users/services/authentication.service";
+import {AuthenticationService} from "./authentication/services/authentication.service";
 import {ViewComponent} from './auctions/view/view.component';
 import {JwtInterceptor} from "./util/jwt.interceptor";
 
