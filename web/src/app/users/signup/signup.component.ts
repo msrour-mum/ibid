@@ -23,10 +23,6 @@ export class SignupComponent implements OnInit, OnDestroy {
       }),
       phone: [''],
       photoUrl: ['']
-      // ,aliases: this.fb.array([
-      //   this.fb.control('')
-      // ])
-
     });
 
   constructor(private fb: FormBuilder,

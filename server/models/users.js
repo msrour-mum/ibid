@@ -24,9 +24,13 @@ userSchema.statics.hashPassword = function hashPassword(password){
     return bcrypt.hashSync(password,10);
 }
 
-userSchema.methods.isValid = function(hashedpassword){
-    return  bcrypt.compareSync(hashedpassword, this.password);
+userSchema.statics.isValid = function(password, hashedpassword){
+    return  bcrypt.compareSync(password,hashedpassword);
 }
+
+userSchema.statics.findByEmail = async function(email) {
+    return await this.findOne({email: email}).lean();
+};
 
 userSchema.plugin(uniqueValidator, {message: 'already exits'});
 module.exports = mongoose.model('User', userSchema);

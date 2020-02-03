@@ -2,7 +2,9 @@
   "development": {
     "config_id": "development",
     "node_port": 4000,
-    "database": "my-app-db-dev"
+    "database": "my-app-db-dev",
+    "secret": "helloworld",
+    "token_expiry":"1d"
   },
   "testing": {
     "config_id": "testing",
