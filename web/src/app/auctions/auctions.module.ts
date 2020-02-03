@@ -12,9 +12,10 @@ import {AppRoutingModule} from '../app-routing.module';
 import {UtilModule} from '../util/util.module';
 
 const routes = [
-  {path: ':auctionId', component: BidComponent, pathMatch: 'full' },
+  {path: ':auctionId', component: ViewComponent, pathMatch: 'full' },
   {path: '', component: CreateComponent, pathMatch: 'full' }
   ];
+
 
 @NgModule({
   declarations: [CreateComponent, ViewComponent, ListComponent, BidComponent, CommentsComponent, RatingComponent],

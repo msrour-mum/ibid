@@ -52,8 +52,24 @@ export class AuctionsApiService {
         catchError(this.handleError)
       );
   }
-  bid(auction: Auction): Observable<Auction> {
-    return this.httpClient.post<Auction>(this.REST_API_SERVER, auction)
+  bid(auctionId: any, bidItem: any): Observable<Auction> {
+    console.log('u : ',this.REST_API_SERVER+ '/' + auctionId+ '/bids')
+    return this.httpClient.post<Auction>(this.REST_API_SERVER+ '/' + auctionId+ '/bids', bidItem)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  like(auctionId: any, bidItem: any): Observable<Auction> {
+    return this.httpClient.post<Auction>(this.REST_API_SERVER+ '/' + auctionId+ '/likes', bidItem)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  dislike(auctionId: any, bidItem: any): Observable<Auction> {
+    console.log('u : ',this.REST_API_SERVER+ '/' + auctionId+ '/bids')
+    return this.httpClient.post<Auction>(this.REST_API_SERVER+ '/' + auctionId+ '/bids', bidItem)
       .pipe(
         catchError(this.handleError)
       );

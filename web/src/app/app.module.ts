@@ -15,6 +15,7 @@ import {LoginComponent} from "./users/login/login.component";
 import {SignupComponent} from "./users/signup/signup.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {AuthenticationService} from "./users/services/authentication.service";
+import {ViewComponent} from './auctions/view/view.component';
 
 export function initializeApp(appConfig: AppConfig) {
   return () => appConfig.load();
@@ -23,7 +24,7 @@ export function initializeApp(appConfig: AppConfig) {
 const routes = [
   {path: '', component: ListComponent,pathMatch: 'full' },
   {path: 'home', component: ListComponent  },
-  {path: 'auctions/:auctionId', component: BidComponent  },
+  {path: 'auctions/:auctionId', component: ViewComponent  },
   {path: 'auctions', component: CreateComponent  },
   {path: 'profile', component: ListComponent  },
   {path: 'login', component: LoginComponent  },
