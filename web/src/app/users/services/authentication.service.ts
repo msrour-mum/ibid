@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {AppConfig} from "../../config/app.config";
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,15 @@ export class AuthenticationService {
 
   register(body:any) {
 
-    return this.http.post('http://localhost:4000/auth/signup', body,{
+    return this.http.post(AppConfig.settings.apiServiceUrl + 'auth/signup', body,{
       observe:'body'
     });
+  }
 
+  login(body:any) {
+
+    return this.http.post(AppConfig.settings.apiServiceUrl + 'auth/login', body,{
+      observe:'body'
+    });
   }
 }
