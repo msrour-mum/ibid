@@ -8,4 +8,7 @@ router.get('', authGaurd, controller.find);
 router.get('/:id', authGaurd, controller.findOne);
 router.post('', authGaurd, controller.save);
 
+router.post('/:id/bids', controller.addBid);
+router.post('/:id/likes', controller.like);
+
 module.exports = router;

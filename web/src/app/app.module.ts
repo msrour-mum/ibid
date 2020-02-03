@@ -15,6 +15,7 @@ import {LoginComponent} from "./users/login/login.component";
 import {SignupComponent} from "./users/signup/signup.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {AuthenticationService} from "./users/services/authentication.service";
+import {ViewComponent} from './auctions/view/view.component';
 import {JwtInterceptor} from "./util/jwt.interceptor";
 
 export function initializeApp(appConfig: AppConfig) {
@@ -24,7 +25,7 @@ export function initializeApp(appConfig: AppConfig) {
 const routes = [
   {path: '', component: ListComponent,pathMatch: 'full' },
   {path: 'home', component: ListComponent  },
-  {path: 'auctions/:auctionId', component: BidComponent  },
+  {path: 'auctions/:auctionId', component: ViewComponent  },
   {path: 'auctions', component: CreateComponent  },
   {path: 'profile', component: ListComponent  },
   {path: 'login', component: LoginComponent  },
@@ -53,8 +54,9 @@ const routes = [
       useFactory: initializeApp,
       deps: [AppConfig], multi: true
     },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor,deps: [AppConfig], multi: true },
-    AuthenticationService
+    AuthenticationService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+
   ],
   bootstrap: [AppComponent]
 })

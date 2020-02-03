@@ -4,6 +4,7 @@ import {AppConfig} from "../../config/app.config";
 import {BehaviorSubject, Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import { JwtHelperService } from "@auth0/angular-jwt";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -16,17 +17,16 @@ export class AuthenticationService {
   private jwtHelperService: JwtHelperService;
   private AUTH_STORAGE_NAME: string = '_AUTH';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private router: Router) {
 
     this.authenticationSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem(this.AUTH_STORAGE_NAME)));
     this.authentication = this.authenticationSubject.asObservable();
     this.jwtHelperService =new JwtHelperService();
-
-
   }
 
   public get currentUser(): any {
-    return this.authenticationSubject.value ? this.authenticationSubject.value.user : {};
+    return this.authenticationSubject.value ? this.authenticationSubject.value.user : null;
   }
 
   public get authToken(): any {
@@ -56,5 +56,6 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem(this.AUTH_STORAGE_NAME);
     this.authenticationSubject.next(null);
+    this.router.navigate(['login']);
   }
 }

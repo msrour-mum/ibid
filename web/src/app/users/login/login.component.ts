@@ -23,7 +23,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private authService: AuthenticationService) { }
+              private authService: AuthenticationService) {
+
+    if (this.authService.isAuthenticated) {
+      this.router.navigate(['/']);
+    }
+  }
 
   ngOnInit() {
   }

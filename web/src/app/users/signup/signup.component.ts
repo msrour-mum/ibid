@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationService} from "../services/authentication.service";
 import {SubSink} from "subsink";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -26,8 +27,12 @@ export class SignupComponent implements OnInit, OnDestroy {
     });
 
   constructor(private fb: FormBuilder,
+              private router: Router,
               private authService : AuthenticationService) {
 
+    if (this.authService.isAuthenticated) {
+      this.router.navigate(['/']);
+    }
   }
 
   ngOnInit() {
