@@ -1,0 +1,8 @@
+<div class="box">
+    <h6>Add Comments</h6>
+      <div class="form-group">
+        <label for="comment">Write down what you think about this auction or seller.</label>
+        <textarea #comment_text class="form-control"  rows="3"></textarea>
+      </div>
+      <button type="submit" (click)="addComment(comment_text.value)" class="btn btn-primary">Post</button>
+  </div>

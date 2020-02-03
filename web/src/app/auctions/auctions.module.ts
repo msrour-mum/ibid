@@ -9,6 +9,8 @@ import { RatingComponent } from './rating/rating.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from "@angular/router";
 import {AppRoutingModule} from '../app-routing.module';
+import { CommentsModule } from './comments/comments.module';
+
 
 const routes = [
   {path: ':auctionId', component: BidComponent, pathMatch: 'full' },
@@ -16,16 +18,17 @@ const routes = [
   ];
 
 @NgModule({
-  declarations: [CreateComponent, ViewComponent, ListComponent, BidComponent, CommentsComponent, RatingComponent],
+  declarations: [CreateComponent, ViewComponent, ListComponent, BidComponent, RatingComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    CommentsModule
     //RouterModule.forChild(routes)
   ],
   exports:[
-    CreateComponent, ViewComponent, ListComponent, BidComponent, CommentsComponent, RatingComponent
+    CreateComponent, ViewComponent, ListComponent, BidComponent, RatingComponent
   ]
 })
 export class AuctionsModule { }

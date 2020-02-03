@@ -23,7 +23,8 @@ var find = async function(req, res, next)
 {
     try{
 
-        let page = req.query.page || 0;
+        let page = req.query._page || 0;
+        recordLimit = req.query._limit || recordLimit;
        
         await Auction.createIndexes();
         var result = await Auction.find({})
@@ -85,7 +86,9 @@ var search = async function(req, res, next)
     try{  
        
         await Auction.createIndexes();
-        let page = req.query.page || 0;
+        let page = req.query._page || 0;
+        recordLimit = req.query._limit || recordLimit;
+        
       
         var result = await Auction.find(({text: {search: req.query.q}}))
         .limit(recordLimit)

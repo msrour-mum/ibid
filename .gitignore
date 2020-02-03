@@ -54,3 +54,5 @@ server/.idea/
 server/logs.log
 
 server/.vscode/
+
+.vscode/

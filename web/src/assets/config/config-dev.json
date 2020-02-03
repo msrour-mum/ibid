@@ -1,4 +1,5 @@
 {
   "config_id": "dev",
-  "apiServiceUrl": "http://localhost:4000/"
+  "apiServiceUrl": "http://localhost:4000/",
+  "retryCount": 3
 }

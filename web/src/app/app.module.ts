@@ -1,16 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { APP_INITIALIZER } from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
+import {PreloadAllModules, RouterModule} from "@angular/router";
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AppConfig} from './config/app.config';
-import { APP_INITIALIZER } from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
 import {AuctionsModule} from './auctions/auctions.module';
 import {ListComponent} from "./auctions/list/list.component";
-import {PreloadAllModules, RouterModule} from "@angular/router";
 import {CreateComponent} from './auctions/create/create.component';
 import {BidComponent} from './auctions/bid/bid.component';
+
 
 export function initializeApp(appConfig: AppConfig) {
   return () => appConfig.load();
@@ -30,9 +32,7 @@ const routes = [
 @NgModule({
   declarations: [
     AppComponent
-
-
-  ],
+  ],   
   imports: [
     BrowserModule,
     AppRoutingModule ,
@@ -47,4 +47,6 @@ const routes = [
       ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+ }

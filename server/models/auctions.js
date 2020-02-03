@@ -16,7 +16,7 @@ var auctionSchema = mongoose.Schema({
     init_price:{type:Number, default:0},
     bid_price : {type:Number, default:0},
     bids:[{user: {name: String, email:String, photoUrl:String}, creation_date:Date, price: Number}],  
-    comments:[{user:{name: String, email:String, photoUrl:String}, creation_date:Date, comment_text:String}],  
+    comments:[{user:{name: String, email:String, photoUrl:String}, creation_date:{type:Date,default:Date.now}, comment_text:String}],  
     likes: [{user:{name: String, email:String, photoUrl:String}, is_like: Boolean}],
     count_bids: {type:Number, default:0},
     count_comments: {type:Number, default:0},
@@ -24,7 +24,7 @@ var auctionSchema = mongoose.Schema({
     count_dislike:{type:Number, default:0},
     status: { type: String, default: 'Initiated' }, //Initiated | Open | Solid | Expired'
     location:[Number],
-    winner:{name: String, email:String},
+    winner:{name: String, email:String, photoUrl:String},
     photosUrl:[String] 
 },
 {timestamps: { 

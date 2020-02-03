@@ -12,6 +12,7 @@ var mongoose = require('mongoose');
 
 var auctionsRouter = require('./routes/auctions');
 var usersRouter = require('./routes/users');
+var commentsRouter = require('./routes/comments');
 
 var app = express();
 
@@ -49,6 +50,7 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/auctions/:id/comments',commentsRouter);
 app.use('/auctions', auctionsRouter);
 app.use('/users', usersRouter);
 
