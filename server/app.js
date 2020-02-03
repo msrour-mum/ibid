@@ -65,8 +65,6 @@ app.get('/', (req, res) => {
 console.log("global.gConfig.node_port : ",global.gConfig.node_port)
 
 
-
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

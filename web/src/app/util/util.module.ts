@@ -8,8 +8,6 @@ import {TimePipe} from './time-ago.pipe';
 @NgModule({
   declarations: [
     TimePipe
-
-
   ],
   exports: [TimePipe]
 })

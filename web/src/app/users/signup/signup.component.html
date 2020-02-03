@@ -8,12 +8,6 @@
 
           <div class="card-body">
             <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-              <p>
-                Form Value: {{ signupForm.value | json }}
-              </p>
-              <p>
-                Form Status: {{ signupForm.status }}
-              </p>
               <fieldset>
                 <div class="form-group">
                   <label for="email">Email</label>

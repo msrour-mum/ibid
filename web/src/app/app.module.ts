@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AppConfig} from './config/app.config';
 import { APP_INITIALIZER } from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuctionsModule} from './auctions/auctions.module';
 import {ListComponent} from "./auctions/list/list.component";
 import {PreloadAllModules, RouterModule} from "@angular/router";
@@ -15,6 +15,7 @@ import {LoginComponent} from "./users/login/login.component";
 import {SignupComponent} from "./users/signup/signup.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {AuthenticationService} from "./users/services/authentication.service";
+import {JwtInterceptor} from "./util/jwt.interceptor";
 
 export function initializeApp(appConfig: AppConfig) {
   return () => appConfig.load();
@@ -52,8 +53,14 @@ const routes = [
       useFactory: initializeApp,
       deps: [AppConfig], multi: true
     },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor,deps: [AppConfig], multi: true },
     AuthenticationService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor()
+  {
+
+  }
+}

@@ -2,6 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationService} from "../services/authentication.service";
 import {SubSink} from "subsink";
+import {first} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -18,8 +20,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     name: ['', Validators.required],
     password: ['', Validators.required]
   });
+
   constructor(private fb: FormBuilder,
-              private authService : AuthenticationService) { }
+              private router: Router,
+              private authService: AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -39,17 +43,19 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     this.subs.add(this.authService.login(this.loginForm.value)
+      .pipe(first())
       .subscribe((result: any) => {
-        console.log(result.error);
-          if(result.error) { return this.failedLoginHandler(result.error.message);}
-          console.dir('result' + result);
+          if (result.error) {
+            return this.failedLoginHandler(result.error.message);
+          } else {
+            return this.router.navigate(['home']);
+          }
         },
         result => this.failedLoginHandler(result.error.error.message)
       ));
   };
 
   failedLoginHandler(message):void {
-    console.log('fail');
     this.loginFailed = true;
     this.message = message;
   }

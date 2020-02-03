@@ -16,20 +16,21 @@ const save = async function(req, res)
     }
 }
 
-var authenticate = async function (req, res) {
+const authenticate = async function (req, res) {
 
     try {
         let user = await User.findByEmail(req.body.email);
 
         if (user && User.isValid(req.body.password, user.password)) {
-            let token = jwt.sign({
+            let authenticatedUser = {
                 _id: user._id,
-                username: user.email,
+                email: user.email,
                 name: user.name,
-               photosUrl: user.photosUrl
-            }, global.gConfig.secret, {expiresIn: global.gConfig.token_expiry});
+                photoUrl: user.photoUrl
+            };
+            let token = jwt.sign(authenticatedUser, global.gConfig.secret, {expiresIn: global.gConfig.token_expiry});
 
-            res.result(200, {token: token});
+            res.result(200, {token: token, user: authenticatedUser});
         } else {
             res.error(200, 401, "Invalid user email or password");
         }
@@ -38,6 +39,7 @@ var authenticate = async function (req, res) {
         return res.error(500,-1,err.message);
     }
 };
+
 module.exports = {
     save,
     authenticate
