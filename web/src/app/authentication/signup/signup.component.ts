@@ -23,7 +23,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         zipCode: ['', Validators.required]
       }),
       phone: [''],
-      photoUrl: ['']
+      photoUrl: ['', Validators.required]
     });
 
   constructor(private fb: FormBuilder,
@@ -45,16 +45,29 @@ export class SignupComponent implements OnInit, OnDestroy {
   hasError(controlName, validationType) {
     return this.signupForm.get(controlName).errors &&
       this.signupForm.get(controlName).errors[validationType] &&
-      this.signupForm.get(controlName).touched;
+      (this.signupForm.get(controlName).touched);
   }
   isValid(controlName) {
     return this.signupForm.get(controlName).invalid &&
            this.signupForm.get(controlName).touched;
   }
 
-  onSubmit(): void {
+  onFileSelect(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.signupForm.get('photoUrl').setValue(file);
+    }
+  }
 
-    this.subs.add(this.authService.register(this.signupForm.value)
+  onSubmit(): void {
+    if(this.signupForm.invalid) {
+      return;
+    }
+    let formData: any = new FormData();
+    formData.append("payload", JSON.stringify(this.signupForm.value));
+    formData.append("photo", this.signupForm.get('photoUrl').value);
+
+    this.subs.add(this.authService.register(formData)
       .subscribe(
         data => {
           this.router.navigate(['/login']);
