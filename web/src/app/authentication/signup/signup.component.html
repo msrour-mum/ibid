@@ -23,6 +23,9 @@
                   <div *ngIf="hasError('email', 'email')" class="invalid-feedback">
                     Invalid email address
                   </div>
+                  <div *ngIf="userEmailFail" class="invalid-feedback custom-error">
+                    {{userEmailIsAlreadyTakenErrorMessage}}
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="password">Password</label>

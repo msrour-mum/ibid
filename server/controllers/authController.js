@@ -7,6 +7,12 @@ const register = async function(req, res)
         let payload = JSON.parse(req.body.payload);
         payload.photoUrl = `pictures/${req.file.filename}`;
 
+        //Check if user already exists
+        const existingUser = (await User.findByEmail(payload.email));
+        if(existingUser) {
+            return res.error(200, 407, "User email already exists");
+        }
+
         const user = new User(payload);
         user.password = User.hashPassword(payload.password);
 

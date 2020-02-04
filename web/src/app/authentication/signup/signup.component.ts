@@ -11,6 +11,9 @@ import {Router} from "@angular/router";
 })
 export class SignupComponent implements OnInit, OnDestroy {
 
+  private userEmailFail: boolean;
+  private userEmailIsAlreadyTakenErrorMessage: String;
+
   private subs = new SubSink();
   private signupForm : FormGroup =  this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -69,8 +72,13 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     this.subs.add(this.authService.register(formData)
       .subscribe(
-        data => {
-          this.router.navigate(['/login']);
+        (data: any) => {
+          if(data.error && data.error.code == 407) {
+            this.userEmailFail = true;
+            this.userEmailIsAlreadyTakenErrorMessage = data.error.message;
+          } else {
+            this.router.navigate(['/login']);
+          }
         },
         error => console.log(error)
       ));
