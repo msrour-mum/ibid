@@ -11,16 +11,12 @@ var find = async function(req, res, next)
                                    .sort('-comments.creation_date');
 
        
-        res.send(result.comments);
-        res.end();
-
-       // return res.status(200,result).end();
+         res.result(200,result);
         
-    }catch(err)
-    {
-        console.log(err.message);
-       // return res.error(500,1000,err.message);
-    }
+        }catch(err)
+        {
+            return res.error(500,1000,err.message);
+        }
 }
 
 var save = async function(req, res,next)
@@ -39,12 +35,11 @@ var save = async function(req, res,next)
         await auction.save();  
           
       
-        res.send(comment);
-        res.end();
-       // return res.status(200,result).end();
+        res.result(200,comment);
+        
     }catch(err)
     {
-        return res.error(500,1000,err.message);
+       return res.error(500,1000,err.message);
     }
 }
 

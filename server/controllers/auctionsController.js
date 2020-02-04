@@ -25,24 +25,24 @@ var find = async function(req, res, next)
 
         let page = req.query._page || 0;
         recordLimit = req.query._limit || recordLimit;
-       
+        
+        page = parseInt(page);
+        recordLimit = parseInt(recordLimit);
+
         await Auction.createIndexes();
         var result = await Auction.find({})
         .sort('-creation_date')
-        .limit(recordLimit)
-        .skip(recordLimit*page)
+         .limit(recordLimit)
+         .skip(recordLimit*page)
         .select(select)
         .exec();
 
      
-         res.send(result);
-         res.end();
-       // return res.status(200,result).end();
+        res.result(200,result);
         
     }catch(err)
     {
-        console.log(err.message);
-       // return res.error(500,1000,err.message);
+       return res.error(500,1000,err.message);
     }
 }
 
@@ -54,12 +54,11 @@ var findOne = async function(req, res, next)
         var result =  await Auction.findById(req.params.id);
 
 
-        res.send(result);
-        res.end();
-       // return res.status(200,result).end();
+        res.result(200,result);
+        
     }catch(err)
     {
-        return res.error(500,1000,err.message);
+       return res.error(500,1000,err.message);
     }
    
 }
@@ -72,13 +71,11 @@ var save = async function(req, res,next)
         var result =  await auction.save();  
 
       
-        res.send(result);
-        res.end();
-       // return res.status(200,result).end();
+        res.result(200,result);
+        
     }catch(err)
     {
-        console.log(err)
-        return res.error(500,1000,err.message);
+       return res.error(500,1000,err.message);
     }
 }
 
@@ -96,13 +93,11 @@ var addBid = async function(req, res,next)
         auction.bid_price=req.body.price;
         var result =  await auction.save();
 
-        res.send(result);
-        res.end();
-        // return res.status(200,result).end();
+        res.result(200,result);
+        
     }catch(err)
     {
-        console.log(err)
-        return res.error(500,1000,err.message);
+       return res.error(500,1000,err.message);
     }
 }
 
@@ -124,12 +119,12 @@ var like = async function(req, res,next)
         auction.count_like =auction.likes.filter(x=>x.is_like==true).length|0;
         auction.count_dislike =auction.likes.length-auction.count_like;
         var result =  await auction.save();
-        res.send(result);
-        res.end();
+        
+        res.result(200,result);
+        
     }catch(err)
     {
-        console.log(err)
-        return res.error(500,1000,err.message);
+       return res.error(500,1000,err.message);
     }
 }
 
@@ -142,6 +137,9 @@ var search = async function(req, res, next)
         let page = req.query._page || 0;
         recordLimit = req.query._limit || recordLimit;
         
+        page = parseInt(page);
+        recordLimit = parseInt(recordLimit);
+        
       
         var result = await Auction.find(({text: {search: req.query.q}}))
         .limit(recordLimit)
@@ -152,13 +150,11 @@ var search = async function(req, res, next)
         console.log(res.result);
 
        
-        res.send(result);
-        res.end();
-       // return res.status(200,result).end();
-
+        res.result(200,result);
+        
     }catch(err)
     {
-        return res.error(500,1000,err.message);
+       return res.error(500,1000,err.message);
     }
 }
     

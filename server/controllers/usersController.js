@@ -16,14 +16,11 @@ const find = async function(req, res, next)
         .exec();
 
      
-         res.send(result);
-         res.end();
-       // return res.status(200,result).end();
+        res.result(200,result);
         
     }catch(err)
     {
-        console.log(err.message);
-       // return res.error(500,1000,err.message);
+       return res.error(500,1000,err.message);
     }
 }
 
@@ -35,12 +32,11 @@ const findOne = async function(req, res, next)
         var result =  await User.findById(req.params.id);
 
        
-        res.send(result);
-        res.end();
-       // return res.status(200,result).end();
+        res.result(200,result);
+        
     }catch(err)
     {
-        return res.error(500,1000,err.message);
+       return res.error(500,1000,err.message);
     }
    
 }

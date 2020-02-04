@@ -40,9 +40,9 @@ export class CreateComponent implements OnInit {
 
   ngOnInit() {
     console.log('Onine'),
-      this.dataService.list().subscribe((data: any[]) => {
-        console.log(data);
-        this.incomeData = data;
+      this.dataService.list().subscribe((result: any) => {
+        console.log(result.data);
+        this.incomeData = result.data;
       });
   }
   OnSubmit(): void {
