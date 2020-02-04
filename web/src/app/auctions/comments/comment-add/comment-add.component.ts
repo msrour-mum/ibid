@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CommentsService } from 'src/app/services/comments.service';
 import {Comment} from 'src/app/models/comments';
 import { DataService } from 'src/app/services/data.service';
- 
+
 
 @Component({
   selector: 'comment-add',
@@ -13,20 +13,20 @@ import { DataService } from 'src/app/services/data.service';
 export class CommentAddComponent implements OnInit {
 
   auctionId : string;
- 
+
   constructor(private commentsService: CommentsService,
-    private dataService: DataService) { 
+    private dataService: DataService) {
 
       this.dataService.auctionIdEmitter
       .subscribe(id => this.auctionId = id);
     }
-   
+
   ngOnInit() {
-   
+
   }
 
   addComment(comment_text:string){
-    var user = {name:'Adi', 
+    var user = {name:'Adi',
     email:'a.abuhazeem@gmail.com',
     photoUrl:'http://lorempixel.com/40/40/people/1/'};
 
@@ -34,8 +34,8 @@ export class CommentAddComponent implements OnInit {
     comment.user = user;
     comment.comment_text = comment_text;
     comment.creation_date = new Date();
-    
-   
+
+    console.log('this.auctionId', this.auctionId)
     this.commentsService.save(this.auctionId, comment)
     .toPromise()
     .then(()=> this.commentsService

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError, retry} from 'rxjs/operators';
+import {catchError, map, retry} from 'rxjs/operators';
 import {Auction} from './auction';
 import {AppConfig} from '../config/app.config';
 
@@ -16,25 +16,35 @@ export class AuctionsApiService {
   }
 
   public list() {
-    const options = {params: new HttpParams({fromString: '_page=1&_limit=30'})};
-    return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(retry(3), catchError(this.handleError));
+    const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
+    return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(
+      map((result: any) => result.data),
+      retry(3), catchError(this.handleError));
   }
   public loadOne(auctionId: any) {
-    const options = {params: new HttpParams({fromString: '_page=1&_limit=30'})};
+    const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
     console.log(this.REST_API_SERVER + '/' + auctionId)
-    return this.httpClient.get<Auction[]>(this.REST_API_SERVER + '/' + auctionId, options).pipe(retry(3), catchError(this.handleError));
+    return this.httpClient.get<Auction[]>(this.REST_API_SERVER + '/' + auctionId, options).pipe(
+      map((result: any) => result.data),
+      retry(3), catchError(this.handleError));
   }
   public search(query) {
-    const options = {params: new HttpParams({fromString: '_page=1&_limit=30'})};
-    return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(retry(3), catchError(this.handleError));
+    const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
+    return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(
+      map((result: any) => result.data),
+      retry(3), catchError(this.handleError));
   }
   public listComment(id) {
-    const options = {params: new HttpParams({fromString: '_page=1&_limit=30'})};
-    return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(retry(3), catchError(this.handleError));
+    const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
+    return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(
+      map((result: any) => result.data),
+      retry(3), catchError(this.handleError));
   }
   public listbids(id) {
-    const options = {params: new HttpParams({fromString: '_page=1&_limit=30'})};
-    return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(retry(3), catchError(this.handleError));
+    const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
+    return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(
+      map((result: any) => result.data),
+      retry(3), catchError(this.handleError));
   }
 
 

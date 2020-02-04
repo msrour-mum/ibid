@@ -1,18 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
-import {Auction} from '../auction';
-import {AuctionsApiService} from '../auctions-api.service';
-import {ActivatedRoute} from '@angular/router';
+import {Auction} from '../../auction';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {EmitterService} from '../../util/emitter.service';
+import {ActivatedRoute} from '@angular/router';
+import {AuctionsApiService} from '../../auctions-api.service';
+import {EmitterService} from '../../../util/emitter.service';
 
 @Component({
-
-  selector: 'auction-item',
-  templateUrl: './view.component.html',
-  styleUrls: ['./view.component.css']
+  selector: 'app-auction-item',
+  templateUrl: './auction-item.component.html',
+  styleUrls: ['./auction-item.component.css']
 })
-export class ViewComponent implements OnInit {
+export class AuctionItemComponent implements OnInit {
   id: object;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -37,16 +36,18 @@ export class ViewComponent implements OnInit {
   }
 
   ngOnInit() {
-this.loadOneAuction();
+    this.loadOneAuction();
 
   }
 
-  loadOneAuction(){
+  loadOneAuction() {
     this.dataService.loadOne(this.id).subscribe((x: any) => {
       this.item = x;
+      console.log('x', x);
       this.emitterService.emitValue(x);
     });
   }
+
   OnBid() {
 
     let user = {name: 'Mohame Salah', email: 'mossalah@mum.ed'};

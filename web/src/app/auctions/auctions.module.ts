@@ -1,37 +1,43 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CreateComponent } from './create/create.component';
-import { ViewComponent } from './view/view.component';
-import { ListComponent } from './list/list.component';
-import { BidComponent } from './bid/bid.component';
-import { CommentsComponent } from './comments/comments.component';
-import { RatingComponent } from './rating/rating.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+
+import {RatingComponent} from './rating/rating.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from '../app-routing.module';
-//import {MomentModule} from '../utility/pipes/date';
 import {UtilModule} from '../util/util.module';
-import { CommentsModule } from './comments/comments.module';
+
+import {AuctionItemComponent} from './auction/auction-item/auction-item.component';
+import {AuctionListComponent} from './auction/auction-list/auction-list.component';
+import {AuctionAddComponent} from './auction/auction-add/auction-add.component';
+import {CommentAddComponent} from './comments/comment-add/comment-add.component';
+import {CommentItemComponent} from './comments/comment-item/comment-item.component';
+import {CommentListComponent} from './comments/comment-list/comment-list.component';
+import {CommentsComponent} from './comments/comments.component';
+import {ResultsLabelPipe} from '../pipes/results-label.pipe';
+import { BidListComponent } from './bid/bid-list/bid-list.component';
 
 
 const routes = [
-  {path: ':auctionId', component: ViewComponent, pathMatch: 'full' },
-  {path: '', component: CreateComponent, pathMatch: 'full' }
-  ];
+  {path: ':auctionId', component: AuctionItemComponent, pathMatch: 'full'},
+  {path: '', component: AuctionAddComponent, pathMatch: 'full'}
+];
 
 
 @NgModule({
-  declarations: [CreateComponent, ViewComponent, ListComponent, BidComponent, RatingComponent],
+  declarations: [ RatingComponent, BidListComponent, AuctionItemComponent, AuctionListComponent, AuctionAddComponent ,
+    CommentAddComponent, CommentItemComponent, CommentListComponent, CommentsComponent, ResultsLabelPipe, BidListComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    CommentsModule,
     UtilModule
 
   ],
-  exports:[
-    CreateComponent, ViewComponent, ListComponent, BidComponent, RatingComponent
+  exports: [
+     RatingComponent, BidListComponent, AuctionItemComponent, AuctionListComponent, AuctionAddComponent,
+    CommentAddComponent, CommentItemComponent, CommentListComponent, CommentsComponent
   ]
 })
-export class AuctionsModule { }
+export class AuctionsModule {
+}

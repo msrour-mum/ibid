@@ -11,15 +11,17 @@ import {AppConfig} from './config/app.config';
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuctionsModule} from './auctions/auctions.module';
-import {ListComponent} from "./auctions/list/list.component";
-import {CreateComponent} from './auctions/create/create.component';
+
 import {BidComponent} from './auctions/bid/bid.component';
 import {LoginComponent} from "./authentication/login/login.component";
 import {SignupComponent} from "./authentication/signup/signup.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {AuthenticationService} from "./authentication/services/authentication.service";
-import {ViewComponent} from './auctions/view/view.component';
+
 import {JwtInterceptor} from "./util/jwt.interceptor";
+import {AuctionItemComponent} from './auctions/auction/auction-item/auction-item.component';
+import {AuctionListComponent} from './auctions/auction/auction-list/auction-list.component';
+import {AuctionAddComponent} from './auctions/auction/auction-add/auction-add.component';
 
 
 export function initializeApp(appConfig: AppConfig) {
@@ -27,11 +29,11 @@ export function initializeApp(appConfig: AppConfig) {
 }
 
 const routes = [
-  {path: '', component: ListComponent,pathMatch: 'full' },
-  {path: 'home', component: ListComponent  },
-  {path: 'auctions/:auctionId', component: ViewComponent  },
-  {path: 'auctions', component: CreateComponent  },
-  {path: 'profile', component: ListComponent  },
+  {path: '', component: AuctionListComponent,pathMatch: 'full' },
+  {path: 'home', component: AuctionListComponent  },
+  {path: 'auctions/:auctionId', component: AuctionItemComponent  },
+  {path: 'auctions', component: AuctionAddComponent  },
+  {path: 'profile', component: AuctionListComponent  },
   {path: 'login', component: LoginComponent  },
   {path: 'signup', component: SignupComponent},
   //{path: 'new', component: ListComponent, pathMatch: 'full' },

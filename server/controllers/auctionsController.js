@@ -84,10 +84,7 @@ var addBid = async function(req, res,next)
     try{
         //const auction = new Auction(req.body);
         console.log('req.body',req.body)
-        let auction =  await Auction.findById(req.params.id,null,null,function (err, item) {
-            item.bids.sortBy('creation_date');
-
-        });
+        let auction =  await Auction.findById(req.params.id);
         console.log('auction',auction)
         auction.bids.push(req.body);
         auction.bid_price=req.body.price;

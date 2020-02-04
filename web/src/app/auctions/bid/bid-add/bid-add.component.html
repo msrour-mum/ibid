@@ -1,0 +1,8 @@
+<form [formGroup]="frmBid" (ngSubmit)="OnBid()">
+
+  <input type="number" [formControl]="frmBid.get('bid')" name="bid" id="bid"
+         class="mr-lg-3" />
+  <button type="submit" class="btn btn-primary">
+    Confirm Bid
+  </button>
+</form>

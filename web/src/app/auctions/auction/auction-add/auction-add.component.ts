@@ -1,18 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import * as moment from 'moment';
-import {AppValidator} from '../../app-validator';
-import {AuctionsApiService} from '../auctions-api.service';
+import {Auction} from '../../auction';
 import {Subject} from 'rxjs';
-import {Auction} from '../auction';
+import {AuctionsApiService} from '../../auctions-api.service';
+import * as moment from 'moment';
+import {AppValidator} from '../../../app-validator';
 
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css']
+  selector: 'app-auction-add',
+  templateUrl: './auction-add.component.html',
+  styleUrls: ['./auction-add.component.css']
 })
-export class CreateComponent implements OnInit {
-
+export class AuctionAddComponent implements OnInit {
   frm: FormGroup;
   public currentDate: string;
   incomeData: Auction[];
@@ -25,7 +24,6 @@ export class CreateComponent implements OnInit {
     // Unsubscribe from the subject
     this.destroy$.unsubscribe();
   }
-
   constructor(private dataService: AuctionsApiService, private  fb: FormBuilder) {
     this.currentDate = moment().add('day', 7).format('MM/DD/YYYY');
     console.log(this.currentDate);
