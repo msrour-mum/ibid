@@ -1,11 +1,20 @@
 const User = require('../models/users');
 const jwt = require('jsonwebtoken');
 
-const save = async function(req, res)
+const register = async function(req, res)
 {
     try{
-        const user = new User(req.body);
-        user.password = User.hashPassword(req.body.password);
+        let payload = JSON.parse(req.body.payload);
+        payload.photoUrl = `pictures/${req.file.filename}`;
+
+        //Check if user already exists
+        const existingUser = (await User.findByEmail(payload.email));
+        if(existingUser) {
+            return res.error(200, 407, "User email already exists");
+        }
+
+        const user = new User(payload);
+        user.password = User.hashPassword(payload.password);
 
         const result =  await user.save();
 
@@ -14,7 +23,7 @@ const save = async function(req, res)
     {
         return res.error(500,1000,err.message);
     }
-}
+};
 
 const authenticate = async function (req, res) {
 
@@ -41,6 +50,6 @@ const authenticate = async function (req, res) {
 };
 
 module.exports = {
-    save,
+    register,
     authenticate
 };

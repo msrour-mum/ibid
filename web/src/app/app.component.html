@@ -19,6 +19,7 @@
       <!--      <input class="form-control mr-sm-2" type="text" placeholder="Search">-->
       <!--      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>-->
       <!--    </form>-->
+      <a href="#" *ngIf="authService.isAuthenticated"><img class="user-small-img" src="{{hostUrl + authService.currentUser.photoUrl}}"  alt="avatar"></a>
       <a class="nav-link" style="color:white" *ngIf="!authService.isAuthenticated" [routerLink]="['login']">Login</a>
       <a class="nav-link" style="color:white" [routerLink]="['home']" *ngIf="authService.isAuthenticated">Hello, {{authService.currentUser.name}} </a>
       <a class="nav-link" style="color:white" *ngIf="authService.isAuthenticated" (click)="authService.logout()">Logout</a>
