@@ -16,7 +16,7 @@ status
 winner 
 photosUrl`;
 
-const recordLimit = 10;
+let recordLimit = 10;
 
 
 var find = async function(req, res, next)
