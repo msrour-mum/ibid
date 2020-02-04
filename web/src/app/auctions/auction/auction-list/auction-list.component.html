@@ -1,7 +1,6 @@
 <div class="container">
   <h2>Auctions</h2>
-  <div class="row" *ngIf="(lstAuctions|async).length">
-
+  <div class="row" *ngIf="(lstAuctions|async)">
     <div *ngFor="let item of lstAuctions|async" class="col-sm-12 col-md-8 order-line-box">
       <div var="cartItem">
         <div class="card border-info mb-3">
@@ -65,15 +64,10 @@
               </div>
               <div class="order-line-cmd-rgt">
                 <div class="prodcut-cmd-icon ">
-                  <form method="post" action="/cart">
-                    <input type="hidden" value="remove" name="addItem" id="addItem" />
-                    <input type="hidden" value="cartItem.product.id" name="productId"
-                           id="addItemProductId" />
+
                     <a [routerLink]="['/auctions',item._id]" class="btn btn-primary">
                       Bid
                     </a>
-
-                  </form>
                 </div>
               </div>
             </div>
@@ -81,6 +75,5 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>

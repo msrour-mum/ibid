@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Auction} from '../../auction';
 import {EmitterService} from '../../../util/emitter.service';
 
@@ -9,11 +9,8 @@ import {EmitterService} from '../../../util/emitter.service';
 })
 export class BidListComponent implements OnInit {
   private auction: Auction;
-
   constructor(private emitterService: EmitterService) {
   }
-
-
   ngOnInit() {
     this.emitterService.emitter.subscribe(data => this.auction = data);
   }

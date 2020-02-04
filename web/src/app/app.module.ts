@@ -12,7 +12,7 @@ import {AppConfig} from './config/app.config';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuctionsModule} from './auctions/auctions.module';
 
-import {BidComponent} from './auctions/bid/bid.component';
+
 import {LoginComponent} from "./authentication/login/login.component";
 import {SignupComponent} from "./authentication/signup/signup.component";
 import {ReactiveFormsModule} from "@angular/forms";

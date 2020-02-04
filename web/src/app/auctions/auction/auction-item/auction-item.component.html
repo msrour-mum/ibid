@@ -13,33 +13,33 @@
               <div class="col user-prof-info-bar">
                 <a href="/user">
                   <img src="../../../assets/images/profile-photo.png" class="user-small-img">
-                  <i class="prd-lbl">{{item.user.name}}</i>
+                  <i class="prd-lbl">{{auction.user.name}}</i>
                 </a>
 
               </div>
               <div class="col float-right">
                 <div class="float-right">
-                  {{item.status}}
+                  {{auction.status}}
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <i class="prd-lbl">Begin</i> <i>{{item.creation_date | timeAgo }}</i>
+                <i class="prd-lbl">Begin</i> <i>{{auction.creation_date | timeAgo }}</i>
               </div>
               <div class="col float-right">
                 <div class="float-right">
-                  <i class="prd-lbl ">Expiry date</i> <i>{{item.expiry_date | timeAgo}}</i>
+                  <i class="prd-lbl ">Expiry date</i> <i>{{auction.expiry_date | timeAgo}}</i>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <i class="prd-lbl">Price</i><i>{{item.bid_price|currency}}</i>
+                <i class="prd-lbl">Price</i><i>{{auction.bid_price|currency}}</i>
               </div>
               <div class="col">
                 <div class="float-right">
-                  <i class="prd-lbl">Bid price</i> <i>{{item.init_price |currency}}</i>
+                  <i class="prd-lbl">Bid price</i> <i>{{auction.init_price |currency}}</i>
                 </div>
               </div>
 
@@ -49,21 +49,21 @@
             <div class="row">
               <img src="cartItem.product.imageUrl" class="cart-prd-img col-3">
               <div class="col-9">
-                <h4 class="card-title">{{item.title}}</h4>
-                <p class="card-text">{{item.description}}</p>
+                <h4 class="card-title">{{auction.title}}</h4>
+                <p class="card-text">{{auction.description}}</p>
               </div>
             </div>
 
 
             <div class="row">
-              <div class="order-line-cmd">
+              <div class="order-line-cmd" >
                                 <span class="prodcut-cmd-icon" title="likes">
 
                                     <form [formGroup]="frmLike" (ngSubmit)="OnLike()" class="col"
                                           style="display: inline">
 
                                         <button type="submit" class="btn btn-primary fas fa-plus">
-                                            {{item.count_like}} </button>
+                                            {{auction.count_like}} </button>
 
 
                                     </form>
@@ -74,32 +74,55 @@
                                     <form [formGroup]="frmDislike" (ngSubmit)="OnDislike()" class="col"
                                           style="display: inline">
                                         <button type="submit" class="btn btn-danger fas fa-minus">
-                                            {{item.count_dislike}} </button>
+                                            {{auction.count_dislike}} </button>
                                     </form>
                                 </span>
               </div>
               <div class="order-line-cmd-rgt">
                 <div class="prodcut-cmd-icon ">
 
-                  <form [formGroup]="frmBid" (ngSubmit)="OnBid()">
+                  <div>
+                    <form [formGroup]="frmBid" (ngSubmit)="OnBid()" appAddBid  msgType="{{validateMsgType}}">
+                      <div class="form-group">
+                        <input type="number" [formControl]="frmBid.get('bid')" name="bid" id="bid"
+                               [ngClass]="{'is-invalid': isValid('bid')}"
+                               autofocus
 
-                    <input type="number" [formControl]="frmBid.get('bid')" name="bid" id="bid"
-                           class="mr-lg-3" />
-                    <button type="submit" class="btn btn-primary">
-                      Confirm Bid
-                    </button>
-                  </form>
+                               class="mr-lg-3 form-control"/>
+                        <div *ngIf="hasError('bid', 'required')" class="invalid-feedback">
+                          amount is required
+                        </div>
+                        <!--    <div *ngIf="hasError('bid', 'isPrice')" class="invalid-feedback">-->
+                        <!--      invalid bid price-->
+                        <!--    </div>-->
+                        <!--    <div *ngIf="hasError('bid', 'validateBidPrice')" class="invalid-feedback">-->
+                        <!--      The new price should be more than the auction price-->
+                        <!--    </div>-->
+                      </div>
+
+                      <button type="submit" class="btn btn-primary">
+                        Confirm Bid
+                      </button>
+
+                    </form>
+                  </div>
+
 
                 </div>
               </div>
-            </div>
 
+            </div>
 
 
           </div>
           <div class="row">
-            <div class="col-12">
-              <label >{{lblBidMsg}}</label>
+            <div class="col" >
+              <div class="alert alert-success " role="alert" *ngIf="(successMsg)">
+                <strong>Bid added successfully , </strong> {{successMsg}}
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="(validateMsg)">
+                <strong>Not Valid !</strong> {{validateMsg}}
+              </div>
             </div>
           </div>
         </div>
@@ -108,10 +131,9 @@
       <app-bid-list></app-bid-list>
 
 
-
     </div>
     <!--Comments-->
-   <comments [auctionId]="item._id" [comments]="item.comments"></comments>
+    <comments [auctionId]="auction._id" [comments]="auction.comments"></comments>
   </div>
 
 </div>
