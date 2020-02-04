@@ -92,9 +92,6 @@ footer .cpy {
     margin: 3px !important;
 }
 
-img:hover{
-    border:3px #18BC9C solid;
-}
 /*.shw-hdn {*/
 /*    display: none;*/
 /*}*/
@@ -162,9 +159,16 @@ img:hover{
 .user-prof-info-bar{
   margin-bottom: 10px;
 }
-.user-small-img {
+
+.user-small-sqr-img {
   width: 40px;
   height: 40px;
+  margin: 5px;
+}
+
+.user-small-img {
+  width: 35px;
+  height: 30px;
   margin-right: 5px;
   border-radius: 50px;
 }

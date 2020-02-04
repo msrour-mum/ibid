@@ -8,13 +8,12 @@
             <div class="row">
               <div class="col user-prof-info-bar">
                 <a href="/user">
-                  <img src="../../../assets/images/profile-photo.png" class="user-small-img">
+                  <img src="{{hostUrl + item.user.photoUrl}}" class="user-small-img">
                   <i class="prd-lbl">{{item.user.name}}</i>
                 </a>
 
               </div>
-              <div class="col float-right">
-                <div class="float-right">
+              <div class="col float-right">                <div class="float-right">
                   {{item.status}}
                 </div>
               </div>
@@ -43,7 +42,7 @@
           </div>
           <div class="card-body col-12">
             <div class="row">
-              <img src="cartItem.product.imageUrl" class="cart-prd-img col-3">
+              <img src="{{hostUrl + item.photosUrl[0]}}" class="cart-prd-img col-3">
               <div class="col-9">
                 <h4 class="card-title">{{item.title}}</h4>
                 <p class="card-text">{{item.description}}</p>

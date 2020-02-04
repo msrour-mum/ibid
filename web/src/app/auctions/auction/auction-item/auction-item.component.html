@@ -12,7 +12,7 @@
             <div class="row">
               <div class="col user-prof-info-bar">
                 <a href="/user">
-                  <img src="../../../assets/images/profile-photo.png" class="user-small-img">
+                  <img src="{{hostUrl + auction.user.photoUrl}}" class="user-small-img">
                   <i class="prd-lbl">{{auction.user.name}}</i>
                 </a>
 
@@ -47,7 +47,7 @@
           </div>
           <div class="card-body col-12">
             <div class="row">
-              <img src="cartItem.product.imageUrl" class="cart-prd-img col-3">
+              <img src="{{hostUrl + auction.photosUrl[0]}}" class="cart-prd-img col-3">
               <div class="col-9">
                 <h4 class="card-title">{{auction.title}}</h4>
                 <p class="card-text">{{auction.description}}</p>

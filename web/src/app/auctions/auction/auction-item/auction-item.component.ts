@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {AuctionsApiService} from '../../auctions-api.service';
 import {EmitterService} from '../../../util/emitter.service';
 import {AuthenticationService} from '../../../authentication/services/authentication.service';
+import {AppConfig} from "../../../config/app.config";
 
 @Component({
   selector: 'app-auction-item',
@@ -17,6 +18,7 @@ export class AuctionItemComponent implements OnInit {
   auctionId: object;
   destroy$: Subject<boolean> = new Subject<boolean>();
   private auction: Auction;
+  private hostUrl: string;
   frmBid: FormGroup;
   frmLike: FormGroup;
   frmDislike: FormGroup;
@@ -40,6 +42,7 @@ export class AuctionItemComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.hostUrl = AppConfig.settings.apiServiceUrl;
     this.loadOneAuction();
 
   }
