@@ -4,7 +4,8 @@
     "node_port": 4000,
     "database": "my-app-db-dev",
     "secret": "helloworld",
-    "token_expiry":"1d"
+    "token_expiry":"1d",
+    "storageDir": "server/assets/images"
   },
   "testing": {
     "config_id": "testing",
