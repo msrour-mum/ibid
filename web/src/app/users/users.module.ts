@@ -13,7 +13,7 @@ import {AppCommonModule} from '../app-common/app-common.module';
   exports: [ProfileComponent, UserAuctionsComponent],
 
   imports: [
-    CommonModule , AuctionsModule,AppCommonModule
+    CommonModule, AuctionsModule, AppCommonModule, ReactiveFormsModule
   ]
 })
 export class UsersModule { }

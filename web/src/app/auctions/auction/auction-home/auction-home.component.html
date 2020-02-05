@@ -1,6 +1,28 @@
 <div class="container">
   <h2>Auctions Home</h2>
- <app-auction-list [lstAuctions]="lstAuctions"></app-auction-list>
+  <app-auction-list [lstAuctions]="lstAuctions"></app-auction-list>
+  <div class="row">
+
+    <div class="col">
+
+      <form [formGroup]="frmPrevious" (ngSubmit)="onPrevious()">
+        <button id="btnPrevious" name="btnPrevious" type="submit" class="btn btn-primary ">
+          Previous
+        </button>
+      </form>
+
+    </div>
+
+    <div class="col float-right">
+
+      <form [formGroup]="frmNext" (ngSubmit)="onNext()">
+        <button id="btnNext" name="btnNext" type="submit" class="btn btn-primary">
+          Next
+        </button>
+      </form>
+    </div>
+
+
+  </div>
 
 </div>
-

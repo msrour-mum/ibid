@@ -18,7 +18,7 @@ export class AuctionUserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.lstAuctions = this.dataService.listUserAuctions(this.authService.currentUser.email);
+  //  this.lstAuctions = this.dataService.listUserAuctions(this.authService.currentUser.email);
 
   }
 
