@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { APP_INITIALIZER } from '@angular/core';
 
-import {PreloadAllModules, RouterModule} from "@angular/router";
+import {PreloadAllModules, RouterModule} from '@angular/router';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,13 +13,13 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuctionsModule} from './auctions/auctions.module';
 
 
-import {LoginComponent} from "./authentication/login/login.component";
-import {SignupComponent} from "./authentication/signup/signup.component";
-import {ReactiveFormsModule} from "@angular/forms";
-import {AuthenticationService} from "./authentication/services/authentication.service";
+import {LoginComponent} from './authentication/login/login.component';
+import {SignupComponent} from './authentication/signup/signup.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {AuthenticationService} from './authentication/services/authentication.service';
 
-import {JwtInterceptor} from "./app-common/interceptors/jwt.interceptor";
-import {AuthGuard} from "./app-common/guards/authGaurd";
+import {JwtInterceptor} from './app-common/interceptors/jwt.interceptor';
+import {AuthGuard} from './app-common/guards/authGaurd';
 import {AuctionItemComponent} from './auctions/auction/auction-item/auction-item.component';
 import {AuctionListComponent} from './auctions/auction/auction-list/auction-list.component';
 import {AuctionAddComponent} from './auctions/auction/auction-add/auction-add.component';
@@ -36,7 +36,7 @@ export function initializeApp(appConfig: AppConfig) {
 }
 
 const routes = [
-  {path: '', component: AuctionListComponent, canActivate: [AuthGuard] },
+  {path: '', redirectTo: 'home',pathMatch: 'full', canActivate: [AuthGuard] },
   {path: 'home', component: AuctionHomeComponent, canActivate: [AuthGuard]  },
   {path: 'auctions/:auctionId', component: AuctionItemComponent , canActivate: [AuthGuard] },
   {path: 'user/:id/auctions', component: UserAuctionsComponent , canActivate: [AuthGuard] },
@@ -45,7 +45,7 @@ const routes = [
   {path: 'profile', component: AuctionHomeComponent, canActivate: [AuthGuard]  },
   {path: 'login', component: LoginComponent  },
   {path: 'signup', component: SignupComponent},
-  {path: '**', redirectTo:'home', canActivate:[AuthGuard]}];
+  {path: '**', redirectTo: '/home', canActivate: [AuthGuard]} ];
 
 @NgModule({
   declarations: [
