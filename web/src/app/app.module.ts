@@ -41,13 +41,10 @@ const routes = [
   {path: 'auctions/:auctionId', component: AuctionItemComponent , canActivate: [AuthGuard] },
   {path: 'user/:id/auctions', component: UserAuctionsComponent , canActivate: [AuthGuard] },
   {path: 'auctions', component: AuctionAddComponent, canActivate: [AuthGuard]  },
-  {path: 'auctions/search', component: AuctionSearchComponent, canActivate: [AuthGuard]  },
+  {path: 'search', component: AuctionSearchComponent, canActivate: [AuthGuard]  },
   {path: 'profile', component: AuctionHomeComponent, canActivate: [AuthGuard]  },
   {path: 'login', component: LoginComponent  },
   {path: 'signup', component: SignupComponent},
-  //{path: 'new', component: ListComponent, pathMatch: 'full' },
-  //{path: 'users/:id/auctions/:auctionId', component: ListComponent, pathMatch: 'full'},//ToDo: add new component
-  //{path:'auctions', loadChildren: ()=> import('./auctions/auctions.module').then(m=> m.AuctionsModule)},
   {path: '**', redirectTo:'home', canActivate:[AuthGuard]}];
 
 @NgModule({

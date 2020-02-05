@@ -1,6 +1,6 @@
 var Auction = require('../models/auctions');
 
- //Projected fields
+//Projected fields
 const select = `user 
 title 
 description 
@@ -19,170 +19,169 @@ photosUrl`;
 let recordLimit = 10;
 
 
-var find = async function(req, res, next)
-{
-    try{
+var find = async function (req, res, next) {
+    try {
 
         let page = req.query._page || 0;
         recordLimit = req.query._limit || recordLimit;
-        
+
         page = parseInt(page);
         recordLimit = parseInt(recordLimit);
 
         await Auction.createIndexes();
         var result = await Auction.find({})
-        .sort('-creation_date')
-         .limit(recordLimit)
-         .skip(recordLimit*page)
-        .select(select)
-        .exec();
+            .sort('-creation_date')
+            .limit(recordLimit)
+            .skip(recordLimit * page)
+            .select(select)
+            .exec();
 
-     
-        res.result(200,result);
-        
-    }catch(err)
-    {
-       return res.error(500,1000,err.message);
+
+        res.result(200, result);
+
+    } catch (err) {
+        return res.error(500, 1000, err.message);
     }
 }
 
-var findOne = async function(req, res, next)
-{
-    try{
-       
-        await Auction.createIndexes();
-        var result =  await Auction.findById(req.params.id);
-
-
-        res.result(200,result);
-        
-    }catch(err)
-    {
-       return res.error(500,1000,err.message);
-    }
-   
-}
-
-var findUserAuction = async function(req, res, next)
-{
-    try{
+var findOne = async function (req, res, next) {
+    try {
 
         await Auction.createIndexes();
-        var result =  await Auction.find({'user._id':req.params.id});
-        res.result(200,result);
+        var result = await Auction.findById(req.params.id);
 
-    }catch(err)
-    {
-        return res.error(500,1000,err.message);
+
+        res.result(200, result);
+
+    } catch (err) {
+        return res.error(500, 1000, err.message);
     }
 
 }
 
-var save = async function(req, res,next)
-{
-    try{
+var findUserAuction = async function (req, res, next) {
+    try {
+
+        await Auction.createIndexes();
+        var result = await Auction.find({'user._id': req.params.id});
+        res.result(200, result);
+
+    } catch (err) {
+        return res.error(500, 1000, err.message);
+    }
+
+}
+
+var save = async function (req, res, next) {
+    try {
         let payload = JSON.parse(req.body.payload);
 
         const auction = new Auction(payload);
         auction.photosUrl.push(`pictures/${req.file.filename}`);
-        auction.count_bids =auction.likes.length|0;
-        var result =  await auction.save();  
+        auction.count_bids = auction.likes.length | 0;
+        var result = await auction.save();
 
-      
-        res.result(200,result);
-        
-    }catch(err)
-    {
-       return res.error(500,1000,err.message);
+
+        res.result(200, result);
+
+    } catch (err) {
+        return res.error(500, 1000, err.message);
     }
 }
 
-var addBid = async function(req, res,next)
-{
-    try{
-        let auction =  await Auction.findById(req.params.id);
+var addBid = async function (req, res, next) {
+    try {
+        let auction = await Auction.findById(req.params.id);
         auction.bids.push(req.body);
-        auction.bid_price=req.body.price;
-        var result =  await auction.save();
-        res.result(200,result);
-        
-    }catch(err)
-    {
-       return res.error(500,1000,err.message);
+        auction.bid_price = req.body.price;
+        var result = await auction.save();
+        res.result(200, result);
+
+    } catch (err) {
+        return res.error(500, 1000, err.message);
     }
 }
 
-var like = async function(req, res,next)
-{
-    try{
-        var auction =  await Auction.findById(req.params.id);
+var like = async function (req, res, next) {
+    try {
+        var auction = await Auction.findById(req.params.id);
         let found = auction.likes.find(element => element.user.email == req.body.user.email);
         if (found) //remove
         {
             const index = auction.likes.indexOf(found);
             if (index >= 0) auction.likes.splice(index, 1);
-            if(found.is_like!=req.body.is_like){//if is like not equal push again
+            if (found.is_like != req.body.is_like) {//if is like not equal push again
                 auction.likes.push(req.body);
             }
-        }
-        else
+        } else
             auction.likes.push(req.body);
-        auction.count_like =auction.likes.filter(x=>x.is_like==true).length|0;
-        auction.count_dislike =auction.likes.length-auction.count_like;
-        var result =  await auction.save();
-        
-        res.result(200,result);
-        
-    }catch(err)
-    {
-       return res.error(500,1000,err.message);
+        auction.count_like = auction.likes.filter(x => x.is_like == true).length | 0;
+        auction.count_dislike = auction.likes.length - auction.count_like;
+        var result = await auction.save();
+
+        res.result(200, result);
+
+    } catch (err) {
+        return res.error(500, 1000, err.message);
     }
 }
 
 
-var search = async function(req, res, next)
-{
-    try{  
-       
+var search = async function (req, res, next) {
+    try {
+
         await Auction.createIndexes();
         let page = req.query._page || 0;
         recordLimit = req.query._limit || recordLimit;
-        
+
         page = parseInt(page);
         recordLimit = parseInt(recordLimit);
-        
-      console.log('q', req.query.q)
-     //   console.log('q',q)
-     //    var result = await Auction.find(({text: {search: req.query.q}}))
-     //    //.limit(recordLimit)
-     //    //.skip(recordLimit*0)
-     //    //.select(select)
-     //    .exec();
 
-        var result = Auction.find({$text: {$search: req.query.q}})
-            // .skip(recordLimit*page)
-            // .limit(recordLimit)
+        console.log('q', req.query.q)
+        //   console.log('q',q)
+        //    var result = await Auction.find(({text: {search: req.query.q}}))
+        //    //.limit(recordLimit)
+        //    //.skip(recordLimit*0)
+        //    //.select(select)
         //    .exec();
 
-        console.log(res.result);
+       // var result = Auction.find({text: {search: req.query.q}})
+        // .skip(recordLimit*page)
+        // .limit(recordLimit)
+        // .exec();
 
-       
-        res.result(200,result);
-        
-    }catch(err)
-    {
+
+
+        /*var result = Auction.find({$text: {$search: req.query.q}}, {
+            score: {
+                $meta: 'textScore'
+            }
+        }).sort({
+            score: {
+                $meta: 'textScore'
+            }
+        })*/
+
+        //var result = await Auction.find({ "description": { "$regex": req.query.q, "$options": "i" } })
+
+        var result = await Auction.find({ $text: { $search: req.query.q } })
+
+        console.log(res.result);
+        res.result(200, result);
+
+    } catch (err) {
         console.log(err);
 
-        return res.error(500,1000,err.message);
+        return res.error(500, 1000, err.message);
     }
 }
-    
+
 module.exports = {
     find,
     findOne,
     save,
-    search ,
-    addBid ,
-    like ,
+    search,
+    addBid,
+    like,
     findUserAuction
 };

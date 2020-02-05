@@ -18,9 +18,11 @@ export class AuctionSearchComponent implements OnInit {
     activeRouter.queryParams.subscribe(p => {
       this.searchTerm = p.q;
     });
+
   }
 
   ngOnInit() {
+    console.log('this.searchTerm', this.searchTerm)
     this.lstAuctions = this.dataService.search(this.searchTerm);
 
   }
