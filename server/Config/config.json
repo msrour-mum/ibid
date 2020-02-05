@@ -5,7 +5,7 @@
     "database": "my-app-db-dev",
     "secret": "helloworld",
     "token_expiry":"1d",
-    "storageDir": "server/assets/images"
+    "storageDir": "./assets/images"
   },
   "testing": {
     "config_id": "testing",

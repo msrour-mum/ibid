@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CommentsService } from 'src/app/services/comments.service';
-import { Comment } from 'src/app/models/comments';
-import { DataService } from 'src/app/services/data.service';
+import {Component, OnInit} from '@angular/core';
+import {CommentsService} from 'src/app/app-common/services/comments.service';
+import {Comment} from 'src/app/models/comments';
+import {DataService} from 'src/app/app-common/services/data.service';
 
 @Component({
   selector: 'comment-list',
@@ -10,40 +10,40 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class CommentListComponent implements OnInit {
 
-  auctionId : string;
-  comments:Comment[]= [];
+  auctionId: string;
+  comments: Comment[] = [];
 
   constructor(private commentsService: CommentsService,
-    private dataService: DataService) { 
+              private dataService: DataService) {
 
-      this.dataService.auctionIdEmitter
+    this.dataService.auctionIdEmitter
       .subscribe(id => this.auctionId = id);
-  
-      this.dataService.commentsEmitter
+
+    this.dataService.commentsEmitter
       .subscribe(comments => this.comments = comments);
 
-      this.commentsService.newCommentEmitter
-      .subscribe(data=> {
+    this.commentsService.newCommentEmitter
+      .subscribe(data => {
         console.log(data.comment);
-        if(!this.comments)
-        this.comments = [];
-        
+        if (!this.comments) {
+          this.comments = [];
+        }
+
         this.comments.unshift(data.comment);
-        this.comments = this.comments.slice();});
-    }
+        this.comments = this.comments.slice();
+      });
+  }
 
   ngOnInit() {
 
-    
+
   }
 
-  AfterViewInit(){
-    if(!this.comments)
-    {
+  AfterViewInit() {
+    if (!this.comments) {
       //this.comments = this.commentsService.listComments(this.auctionId);
     }
   }
-
 
 
 }

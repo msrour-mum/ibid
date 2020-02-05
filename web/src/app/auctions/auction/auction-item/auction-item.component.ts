@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
-import {Auction} from '../../auction';
+import {Auction} from '../../../models/auction';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {AuctionsApiService} from '../../auctions-api.service';
-import {EmitterService} from '../../../util/emitter.service';
+import {EmitterService} from '../../../app-common/services/emitter.service';
 import {AuthenticationService} from '../../../authentication/services/authentication.service';
-import {AppConfig} from "../../../config/app.config";
+import {AppConfig} from '../../../config/app.config';
+
 
 @Component({
   selector: 'app-auction-item',
@@ -81,10 +82,7 @@ export class AuctionItemComponent implements OnInit {
       // console.log('add auction : ', resp);
     });
     this.loadOneAuction();
-    //this.frmBid.controls['bid'].setValue(0);
-    // this.frmBid.controls['bid'].
 
-    //this.frmBid.disabled=false;
     this.validateMsgType = 'success';
     this.successMsg = 'current item price is : ' + price;
   }

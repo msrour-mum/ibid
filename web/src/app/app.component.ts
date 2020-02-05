@@ -1,6 +1,8 @@
 import {Component, Output} from '@angular/core';
 import {AuthenticationService} from "./authentication/services/authentication.service";
 import {AppConfig} from "./config/app.config";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AppValidator} from './app-common/validators/app-validator';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,12 @@ import {AppConfig} from "./config/app.config";
 export class AppComponent {
   title = 'web';
   @Output() hostUrl;
-  constructor(private authService: AuthenticationService) {
+  searchForm: FormGroup = this.fb.group(
+    {
+      search: ['']
+    });
+  constructor(private authService: AuthenticationService,
+              private  fb: FormBuilder) {
 
     this.hostUrl = AppConfig.settings.apiServiceUrl;
     console.log('Hi there ');

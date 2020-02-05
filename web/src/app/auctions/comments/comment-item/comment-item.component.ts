@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Comment } from 'src/app/models/comments';
-import {AppConfig} from "../../../config/app.config";
+import {AppConfig} from '../../../config/app.config';
 
 @Component({
   selector: 'comment-item',

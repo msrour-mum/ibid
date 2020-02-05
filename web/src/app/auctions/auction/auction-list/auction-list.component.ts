@@ -1,8 +1,8 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {Auction} from '../../auction';
+import {Auction} from '../../../models/auction';
 import {AuctionsApiService} from '../../auctions-api.service';
-import {AppConfig} from "../../../config/app.config";
+import {AppConfig} from '../../../config/app.config';
 
 
 

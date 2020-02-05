@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Auction} from '../../auction';
-import {EmitterService} from '../../../util/emitter.service';
-import {AppConfig} from "../../../config/app.config";
+import {Auction} from '../../../models/auction';
+import {EmitterService} from '../../../app-common/services/emitter.service';
+import {AppConfig} from '../../../config/app.config';
 
 @Component({
   selector: 'app-bid-list',

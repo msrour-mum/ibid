@@ -1,13 +1,13 @@
 import {Component, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Auction} from '../../auction';
+import {Auction} from '../../../models/auction';
 import {Subject} from 'rxjs';
 import {AuctionsApiService} from '../../auctions-api.service';
 import * as moment from 'moment';
-import {AppValidator} from '../../../app-validator';
+import {AppValidator} from '../../../app-common/validators/app-validator';
 import {AuthenticationService} from '../../../authentication/services/authentication.service';
 import {Router} from '@angular/router';
-import {AppConfig} from "../../../config/app.config";
+import {AppConfig} from '../../../config/app.config';
 
 @Component({
   selector: 'app-auction-add',

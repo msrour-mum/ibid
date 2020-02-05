@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {Auction} from '../../auction';
 import {AuctionsApiService} from '../../auctions-api.service';
 import {AuthenticationService} from '../../../authentication/services/authentication.service';
+import {Auction} from '../../../models/auction';
 
 @Component({
   selector: 'app-auction-user',

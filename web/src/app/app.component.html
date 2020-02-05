@@ -1,6 +1,7 @@
 <header>
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" [routerLink]="['home']" *ngIf="authService.isAuthenticated" style="font-family: 'Agency FB'; font-size: 2em">
+    <a class="navbar-brand" [routerLink]="['home']" *ngIf="authService.isAuthenticated"
+       style="font-family: 'Agency FB'; font-size: 2em">
 
       <img src="../assets/images/auction-bid.png" height="40px">
       <strong style="color: red"> i</strong> <samp>-Bid</samp>
@@ -18,17 +19,21 @@
 
         <li class="nav-item">
 
-          <a class="nav-link" [routerLink]="['user/auctions']" *ngIf="authService.isAuthenticated">My Auctions</a>
+          <a class="nav-link" [routerLink]="['user', authService.currentUser._id, 'auctions']"
+             *ngIf="authService.isAuthenticated">My Auctions</a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['auctions']" *ngIf="authService.isAuthenticated">Create Auction</a>
         </li>
       </ul>
-      <!--    <form class="form-inline my-2 my-lg-0"  *ngIf="authService.isAuthenticated">-->
-      <!--      <input class="form-control mr-sm-2" type="text" placeholder="Search">-->
-      <!--      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>-->
-      <!--    </form>-->
+      <div style="margin-right: 20px">
+        <form class="form-inline my-2 my-lg-0" [formGroup]="searchForm" >
+          <input class="form-control mr-sm-2" type="text" placeholder="Search">
+          <a [routerLink]="['auctions','search']" class="btn btn-secondary my-2 my-sm-0" type="submit">Search</a>
+        </form>
+      </div>
+
       <a [routerLink]="['user/auctions']" *ngIf="authService.isAuthenticated"><img class="user-small-img"
                                                                                    src="{{hostUrl + authService.currentUser.photoUrl}}"
                                                                                    alt="avatar"></a>

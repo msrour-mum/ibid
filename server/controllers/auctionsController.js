@@ -68,7 +68,7 @@ var findUserAuction = async function(req, res, next)
     try{
 
         await Auction.createIndexes();
-        var result =  await Auction.find({'user.email':req.params.email});
+        var result =  await Auction.find({'user._id':req.params.id});
         res.result(200,result);
 
     }catch(err)
@@ -85,7 +85,7 @@ var save = async function(req, res,next)
 
         const auction = new Auction(payload);
         auction.photosUrl.push(`pictures/${req.file.filename}`);
-        console.log("save : ",auction)
+        auction.count_bids =auction.likes.length|0;
         var result =  await auction.save();  
 
       
@@ -100,14 +100,10 @@ var save = async function(req, res,next)
 var addBid = async function(req, res,next)
 {
     try{
-        //const auction = new Auction(req.body);
-        console.log('req.body',req.body)
         let auction =  await Auction.findById(req.params.id);
-        console.log('auction',auction)
         auction.bids.push(req.body);
         auction.bid_price=req.body.price;
         var result =  await auction.save();
-
         res.result(200,result);
         
     }catch(err)

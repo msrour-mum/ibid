@@ -18,8 +18,8 @@ import {SignupComponent} from "./authentication/signup/signup.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {AuthenticationService} from "./authentication/services/authentication.service";
 
-import {JwtInterceptor} from "./util/jwt.interceptor";
-import {AuthGuard} from "./util/authGaurd";
+import {JwtInterceptor} from "./app-common/interceptors/jwt.interceptor";
+import {AuthGuard} from "./app-common/guards/authGaurd";
 import {AuctionItemComponent} from './auctions/auction/auction-item/auction-item.component';
 import {AuctionListComponent} from './auctions/auction/auction-list/auction-list.component';
 import {AuctionAddComponent} from './auctions/auction/auction-add/auction-add.component';
@@ -27,6 +27,8 @@ import {AuctionHomeComponent} from './auctions/auction/auction-home/auction-home
 import {UserAuctionsComponent} from './users/user-auctions/user-auctions.component';
 import {AuctionUserComponent} from './auctions/auction/auction-user/auction-user.component';
 import {UsersModule} from './users/users.module';
+import {AppCommonModule} from './app-common/app-common.module';
+import {AuctionSearchComponent} from './auctions/auction/auction-search/auction-search.component';
 
 
 export function initializeApp(appConfig: AppConfig) {
@@ -37,9 +39,9 @@ const routes = [
   {path: '', component: AuctionListComponent, canActivate: [AuthGuard] },
   {path: 'home', component: AuctionHomeComponent, canActivate: [AuthGuard]  },
   {path: 'auctions/:auctionId', component: AuctionItemComponent , canActivate: [AuthGuard] },
-  {path: 'user/auctions', component: UserAuctionsComponent , canActivate: [AuthGuard] },
-  //{path: 'user/auctions', component: AuctionUserComponent , canActivate: [AuthGuard] },
+  {path: 'user/:id/auctions', component: UserAuctionsComponent , canActivate: [AuthGuard] },
   {path: 'auctions', component: AuctionAddComponent, canActivate: [AuthGuard]  },
+  {path: 'auctions/search', component: AuctionSearchComponent, canActivate: [AuthGuard]  },
   {path: 'profile', component: AuctionHomeComponent, canActivate: [AuthGuard]  },
   {path: 'login', component: LoginComponent  },
   {path: 'signup', component: SignupComponent},
@@ -61,7 +63,8 @@ const routes = [
     AuctionsModule,
     UsersModule,
     RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules}),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppCommonModule
   ],
   providers: [AppConfig,
     { provide: APP_INITIALIZER,

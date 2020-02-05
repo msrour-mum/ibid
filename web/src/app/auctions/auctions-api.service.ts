@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
-import {Auction} from './auction';
+import {Auction} from '../models/auction';
 import {AppConfig} from '../config/app.config';
 
 @Injectable({
@@ -19,13 +19,13 @@ export class AuctionsApiService {
     const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
     return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(
       map((result: any) => result.data),
-      map(data => data.filter(d => d.status == 'Initiated')),
+      map(data => data.filter(d => d.status == 'Open')),
       retry(3), catchError(this.handleError));
   }
 
-  public listUserAuctions(userEmail: string) {
+  public listUserAuctions(userId: string) {
     const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
-    return this.httpClient.get<Auction[]>(this.REST_API_SERVER + '/users/' + userEmail + '/auctions', options).pipe(
+    return this.httpClient.get<Auction[]>(this.REST_API_SERVER + '/users/' + userId + '/auctions', options).pipe(
       map((result: any) => result.data),
       //map(data => data.filter(d => d.user.email == userEmail)),
       retry(3), catchError(this.handleError));

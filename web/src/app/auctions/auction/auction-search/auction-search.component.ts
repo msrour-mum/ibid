@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {Auction} from '../../auction';
+import {Auction} from '../../../models/auction';
 import {AuctionsApiService} from '../../auctions-api.service';
 import {ActivatedRoute} from '@angular/router';
 

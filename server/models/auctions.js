@@ -6,7 +6,7 @@ var {max } = require('rxjs/operators');
 
 //create schema
 var auctionSchema = mongoose.Schema({
-    user: {name: String, email:String, photoUrl:String},
+    user: {_id : String , name: String, email:String, photoUrl:String},
     title:{
         type: String,
         required: [true, "can't be blank"]
@@ -25,7 +25,7 @@ var auctionSchema = mongoose.Schema({
     count_comments: {type:Number, default:0},
     count_like: {type:Number, default:0},
     count_dislike:{type:Number, default:0},
-    status: { type: String, default: 'Initiated' }, //Initiated | Open | Sold | Expired'
+    status: { type: String, default: 'Open' }, //Initiated | Open | Sold | Expired'
     location:[Number],
     winner:{name: String, email:String, photoUrl:String},
     photosUrl:[String] 

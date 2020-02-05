@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
-import {CommentsService} from 'src/app/services/comments.service';
-import {DataService} from 'src/app/services/data.service';
+import {CommentsService} from 'src/app/app-common/services/comments.service';
+import {DataService} from 'src/app/app-common/services/data.service';
 
 @Component({
   selector: 'comments',
@@ -22,11 +22,8 @@ export class CommentsComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    //publish auction id & comments to subscribers
     this.dataService.auctionIdEmitter.emit(this.auctionId);
     this.dataService.commentsEmitter.emit(this.comments);
-    console.log('coo',this.comments)
 
   }
 

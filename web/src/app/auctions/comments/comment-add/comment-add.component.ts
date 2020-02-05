@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { CommentsService } from 'src/app/services/comments.service';
+import { CommentsService } from 'src/app/app-common/services/comments.service';
 import {Comment} from 'src/app/models/comments';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/app-common/services/data.service';
 
 
 @Component({
