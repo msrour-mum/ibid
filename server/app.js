@@ -10,12 +10,13 @@ const cors = require('cors');
 //Import the mongoose module
 const mongoose = require('mongoose');
 
-var auctionsRouter = require('./routes/auctions');
-var usersRouter = require('./routes/users');
-var commentsRouter = require('./routes/comments');
+const auctionsRouter = require('./routes/auctions');
+const usersRouter = require('./routes/users');
+const commentsRouter = require('./routes/comments');
 const authRouter = require('./routes/auth');
 
 const app = express();
+app.use('/pictures', express.static(path.join(__dirname,'assets', 'images')));
 
 app.use("*", (req, res, next) =>
 {

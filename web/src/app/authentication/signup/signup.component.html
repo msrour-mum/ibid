@@ -23,6 +23,9 @@
                   <div *ngIf="hasError('email', 'email')" class="invalid-feedback">
                     Invalid email address
                   </div>
+                  <div *ngIf="userEmailFail" class="invalid-feedback custom-error">
+                    {{userEmailIsAlreadyTakenErrorMessage}}
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="password">Password</label>
@@ -123,7 +126,7 @@
                       <option value="WY">Wyoming</option>
                     </select>
                     <div *ngIf="hasError('address.state', 'required')" class="invalid-feedback">
-                      state is required
+                      State is required
                     </div>
                   </div>
 
@@ -149,7 +152,7 @@
                            id="street"
                            placeholder="Enter street">
                     <div *ngIf="hasError('address.street', 'required')" class="invalid-feedback">
-                      City is required
+                      Street is required
                     </div>
                   </div>
 
@@ -162,18 +165,23 @@
                            id="zipCode"
                            placeholder="Enter zip code">
                     <div *ngIf="hasError('address.zipCode', 'required')" class="invalid-feedback">
-                      City is required
+                      Zip code is required
                     </div>
                   </div>
                 </fieldset>
                 <div class="form-group">
                   <label for="photoUrl">File input</label>
                   <input type="file"
-                         [formControl]="signupForm.get('photoUrl')"
                          class="form-control-file"
                          id="photoUrl"
-                         aria-describedby="fileHelp">
-                  <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+                         [formControl]="signupForm.get('photoUrl')"
+                         [ngClass]="{'is-invalid': isValid('photoUrl')}"
+                         aria-describedby="fileHelp"
+                         (change)="onFileSelect($event)">
+                  <div *ngIf="hasError('photoUrl', 'required')" class="invalid-feedback">
+                    Photo is required
+                  </div>
+<!--                  <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>-->
                 </div>
 <!--                <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Register</button>-->
                 <button type="submit" class="btn btn-primary" >Register</button>

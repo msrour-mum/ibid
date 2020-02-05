@@ -7,7 +7,7 @@ import {IAppConfig} from './app-config.model';
   providedIn: 'root'
 })
 export class AppConfig {
-  static settings: IAppConfig;
+  public static settings: IAppConfig;
 
   constructor(private http: HttpClient) {
   }

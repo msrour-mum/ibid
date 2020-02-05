@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Auction} from '../../auction';
 import {EmitterService} from '../../../util/emitter.service';
+import {AppConfig} from "../../../config/app.config";
 
 @Component({
   selector: 'app-bid-list',
@@ -9,12 +10,11 @@ import {EmitterService} from '../../../util/emitter.service';
 })
 export class BidListComponent implements OnInit {
   private auction: Auction;
-
+  private hostUrl: string;
   constructor(private emitterService: EmitterService) {
   }
-
-
   ngOnInit() {
+    this.hostUrl = AppConfig.settings.apiServiceUrl;
     this.emitterService.emitter.subscribe(data => this.auction = data);
   }
 }

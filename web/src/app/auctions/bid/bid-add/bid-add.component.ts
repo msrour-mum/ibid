@@ -5,6 +5,7 @@ import {AuctionsApiService} from '../../auctions-api.service';
 import {EmitterService} from '../../../util/emitter.service';
 import {Subject} from 'rxjs';
 import {Auction} from '../../auction';
+import {AuthenticationService} from '../../../authentication/services/authentication.service';
 
 @Component({
   selector: 'app-bid-add',
@@ -13,14 +14,15 @@ import {Auction} from '../../auction';
 })
 export class BidAddComponent implements OnInit {
   frmBid: FormGroup;
-  id: object;
+  auctionId: object;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  private item: Auction;
+  private auction: Auction;
   lblBidMsg: string;
 
-  constructor(private activeRounter: ActivatedRoute, private dataService: AuctionsApiService, private  fb: FormBuilder, private emitterService: EmitterService) {
-    activeRounter.params.subscribe(p => {
-      this.id = p.auctionId;
+  constructor(private activeRouter: ActivatedRoute, private dataService: AuctionsApiService, private  fb: FormBuilder,
+              private emitterService: EmitterService ,private authService: AuthenticationService) {
+    activeRouter.params.subscribe(p => {
+      this.auctionId = p.auctionId;
     });
 
     this.frmBid = fb.group(
@@ -33,24 +35,23 @@ export class BidAddComponent implements OnInit {
   }
 
   loadOneAuction() {
-    this.dataService.loadOne(this.id).subscribe((x: any) => {
-      this.item = x;
-      console.log('x', x);
-      this.emitterService.emitValue(x);
+    this.dataService.loadOne(this.auctionId).subscribe((data: any) => {
+      this.auction = data;
+      this.emitterService.emitValue(data);
     });
   }
 
   OnBid() {
 
-    let user = {name: 'Mohame Salah', email: 'mossalah@mum.ed'};
+    let user = this.authService.currentUser;
     let price = this.frmBid.value.bid;
     let bidItem = {user: user, creation_date: new Date(), price: price};
-    this.dataService.bid(this.id, bidItem).subscribe(resp => {
+    this.dataService.bid(this.auctionId, bidItem).subscribe(resp => {
       console.log('add auction : ', resp);
     });
     this.loadOneAuction();
     this.frmBid.controls['bid'].setValue(0);
-    this.lblBidMsg = 'Bid added sucessfly , current item price is : ' + price;
+    this.lblBidMsg = 'Bid added sucessfly , current auction price is : ' + price;
   }
 
 }

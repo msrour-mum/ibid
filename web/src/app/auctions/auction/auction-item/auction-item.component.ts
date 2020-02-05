@@ -5,6 +5,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {AuctionsApiService} from '../../auctions-api.service';
 import {EmitterService} from '../../../util/emitter.service';
+import {AuthenticationService} from '../../../authentication/services/authentication.service';
+import {AppConfig} from "../../../config/app.config";
 
 @Component({
   selector: 'app-auction-item',
@@ -12,18 +14,22 @@ import {EmitterService} from '../../../util/emitter.service';
   styleUrls: ['./auction-item.component.css']
 })
 export class AuctionItemComponent implements OnInit {
-  id: object;
 
+  auctionId: object;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  private item: Auction;
+  private auction: Auction;
+  private hostUrl: string;
   frmBid: FormGroup;
   frmLike: FormGroup;
   frmDislike: FormGroup;
-  lblBidMsg: string;
+  validateMsgType: string;
+  validateMsg: string;
+  successMsg :string;
 
-  constructor(private activeRounter: ActivatedRoute, private dataService: AuctionsApiService, private  fb: FormBuilder, private emitterService: EmitterService) {
-    activeRounter.params.subscribe(p => {
-      this.id = p.auctionId;
+  constructor(private activeRouter: ActivatedRoute, private dataService: AuctionsApiService, private  fb: FormBuilder,
+              private emitterService: EmitterService, private authService: AuthenticationService) {
+    activeRouter.params.subscribe(p => {
+      this.auctionId = p.auctionId;
     });
 
     this.frmBid = fb.group(
@@ -36,29 +42,50 @@ export class AuctionItemComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.hostUrl = AppConfig.settings.apiServiceUrl;
     this.loadOneAuction();
 
   }
 
   loadOneAuction() {
-    this.dataService.loadOne(this.id).subscribe((x: any) => {
-      this.item = x;
-      console.log('x', x);
-      this.emitterService.emitValue(x);
+    this.dataService.loadOne(this.auctionId).subscribe((data: any) => {
+      this.auction = data;
+      this.emitterService.emitValue(data);
     });
   }
 
   OnBid() {
 
-    let user = {name: 'Mohame Salah', email: 'mossalah@mum.ed'};
+    this.validateMsgType = this.validateMsg = null;
+    if (!this.frmBid.valid) {
+      return;
+    }
+
+    if (parseFloat(this.frmBid.value.bid) < 0) {
+      this.validateMsg = 'bid price could not be negative number';
+      this.validateMsgType='warning';
+      return;
+    }
+    if (parseFloat(this.frmBid.value.bid) < this.auction.bid_price) {
+      this.validateMsg = 'Your price could not be less than current bid price';
+      this.validateMsgType='warning';
+      return;
+    }
+
+
+    let user = this.authService.currentUser;
     let price = this.frmBid.value.bid;
     let bidItem = {user: user, creation_date: new Date(), price: price};
-    this.dataService.bid(this.id, bidItem).subscribe(resp => {
-      console.log('add auction : ', resp);
+    this.dataService.bid(this.auctionId, bidItem).subscribe(resp => {
+      // console.log('add auction : ', resp);
     });
     this.loadOneAuction();
-    this.frmBid.controls['bid'].setValue(0);
-    this.lblBidMsg = 'Bid added sucessfly , current item price is : ' + price;
+    //this.frmBid.controls['bid'].setValue(0);
+   // this.frmBid.controls['bid'].
+
+    //this.frmBid.disabled=false;
+    this.validateMsgType='success';
+    this.successMsg = 'current item price is : ' + price;
   }
 
   OnLike() {
@@ -70,11 +97,24 @@ export class AuctionItemComponent implements OnInit {
   }
 
   saveLike(islike: boolean) {
-    let user = {name: 'Mohame Salah', email: 'mossalah@mum.ed'};
+    let user = this.authService.currentUser;
     let likeItem = {user: user, is_like: islike};
-    this.dataService.like(this.id, likeItem).subscribe(resp => {
-      console.log('add auction : ', resp);
+    this.dataService.like(this.auctionId, likeItem).subscribe(resp => {
+      //console.log('add auction : ', resp);
     });
     this.loadOneAuction();
   }
+
+
+  hasError(controlName, validationType) {
+    return this.frmBid.get(controlName).errors &&
+      this.frmBid.get(controlName).errors[validationType] &&
+      this.frmBid.get(controlName).touched;
+  }
+
+  isValid(controlName) {
+    return this.frmBid.get(controlName).invalid &&
+      this.frmBid.get(controlName).touched;
+  }
+
 }
