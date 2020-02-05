@@ -49,6 +49,9 @@ export class AuctionItemComponent implements OnInit {
     this.dataService.loadOne(this.auctionId).subscribe((data: any) => {
       this.auction = data;
       this.emitterService.emitValue(data);
+      console.log('loadOneAuction : ', this.auction)
+
+
     });
   }
 
@@ -86,23 +89,6 @@ export class AuctionItemComponent implements OnInit {
     this.successMsg = 'current item price is : ' + price;
   }
 
-  /* OnLike() {
-     this.saveLike(true);
-
-   }
-
-   OnDislike() {
-     this.saveLike(false);
-   }
-
-   saveLike(islike: boolean) {
-     let user = this.authService.currentUser;
-     let likeItem = {user: user, is_like: islike};
-     this.dataService.like(this.auctionId, likeItem).subscribe(resp => {
-       //console.log('add auction : ', resp);
-     });
-     this.loadOneAuction();
-   }*/
 
 
   hasError(controlName, validationType) {

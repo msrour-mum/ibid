@@ -22,7 +22,7 @@ export class AuctionListComponent implements OnInit {
 
   ngOnInit() {
     this.hostUrl = AppConfig.settings.apiServiceUrl;
-  //  this.lstAuctions = this.dataService.list();
+
 
   }
 

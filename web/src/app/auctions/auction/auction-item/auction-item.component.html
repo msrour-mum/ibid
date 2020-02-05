@@ -18,7 +18,7 @@
 
               </div>
               <div class="col float-right">
-                <div class="float-right">
+                <div class="float-right"  appStatus status="{{auction.status}}">
                   {{auction.status}}
                 </div>
               </div>
@@ -61,7 +61,7 @@
                 <div class="prodcut-cmd-icon ">
 
                   <div *ngIf="(auction.status=='Initiated')">
-                    <form [formGroup]="frmBid" (ngSubmit)="OnBid()" appAddBid  msgType="{{validateMsgType}}">
+                    <form [formGroup]="frmBid" (ngSubmit)="OnBid()" appAddBid msgType="{{validateMsgType}}">
                       <div class="form-group">
                         <input type="number" [formControl]="frmBid.get('bid')" name="bid" id="bid"
                                [ngClass]="{'is-invalid': isValid('bid')}"
@@ -91,13 +91,12 @@
               </div>
 
 
-
             </div>
 
 
           </div>
           <div class="row">
-            <div class="col" >
+            <div class="col">
               <div class="alert alert-success " role="alert" *ngIf="(successMsg)">
                 <strong>Bid added successfully , </strong> {{successMsg}}
               </div>
@@ -108,8 +107,8 @@
           </div>
 
           <div class="row">
-            <div class="col" >
-              <div class="alert alert-success " role="alert"  *ngIf="(auction.winner)">
+            <div class="col">
+              <div class="alert alert-success " role="alert" *ngIf="(auction.winner)">
                 <strong> winner : </strong> {{auction.winner.name}}
               </div>
             </div>
@@ -117,7 +116,7 @@
         </div>
       </div>
       <!-- Bid History -->
-      <app-bid-list></app-bid-list>
+      <app-bid-list [auction]="auction"></app-bid-list>
 
 
     </div>
