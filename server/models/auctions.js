@@ -1,4 +1,7 @@
 var mongoose = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
+var mongooseAggregatePaginate = require('mongoose-aggregate-paginate');
+
 var schedule = require('node-schedule');
 var {of} = require('rxjs');
 var {max } = require('rxjs/operators');
@@ -38,6 +41,8 @@ var auctionSchema = mongoose.Schema({
 
 auctionSchema.index({title: 'text', description: 'text'});
 auctionSchema.index({'user.email': 1});
+auctionSchema.plugin(mongoosePaginate);
+auctionSchema.plugin(mongooseAggregatePaginate);
 
 
 auctionSchema.pre('save', function (next) {

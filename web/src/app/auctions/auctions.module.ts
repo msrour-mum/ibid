@@ -15,7 +15,7 @@ import {CommentListComponent} from './comments/comment-list/comment-list.compone
 import {CommentsComponent} from './comments/comments.component';
 import {ResultsLabelPipe} from '../pipes/results-label.pipe';
 import { BidListComponent } from './bid/bid-list/bid-list.component';
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 const routes = [
   {path: ':auctionId', component: AuctionItemComponent, pathMatch: 'full'},
@@ -31,7 +31,8 @@ const routes = [
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    UtilModule
+    UtilModule,
+    InfiniteScrollModule
 
   ],
   exports: [

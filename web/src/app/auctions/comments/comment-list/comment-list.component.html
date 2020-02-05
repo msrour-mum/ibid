@@ -1,1 +1,22 @@
+<div class="comments-list">
+
+    
+ <!-- <div  
+ class="search-results"
+ infiniteScroll
+ [infiniteScrollDistance]=".5"
+ [infiniteScrollThrottle]="10"
+ (scrolled)="onScroll()"
+ [scrollWindow]="false"
+> -->
+
+<div  
+
+>
+
 <comment-item *ngFor="let comment of comments | async" [comment]="comment" ></comment-item>
+</div>
+</div>
+
+
+<button class="btn btn-primary" (click)="onScroll()" >Show More</button>

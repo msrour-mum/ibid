@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+
 var Auction = require('../models/auctions');
 var Comment = require('../models/comments');
 
@@ -11,31 +12,41 @@ var find = async function(req, res, next)
     try{
 
         let page = req.query._page || 0;
-        recordLimit = req.query._limit || recordLimit;
+        recordLimit = req.query._limit;// || recordLimit;
         
         page = parseInt(page);
         recordLimit = parseInt(recordLimit);
 
         await Auction.createIndexes();
-        var result =  await Auction.aggregate()
-                                   .sort('-comments.creation_date')
+        var result =  await  Auction.aggregate()
+                                   
                                    .match({ _id: mongoose.Types.ObjectId(req.params.id)})
-                                   .unwind('comments')
-                                   .limit(recordLimit)
-                                   .skip(recordLimit*page)
+                                   .unwind({
+                                    path: "$comments",
+                                    //includeArrayIndex: "comments.creation_date",
+                                 //   preserveNullAndEmptyArrays: true
+                                  })
                                    .project({
                                              'user' : '$comments.user',
                                              'comment_text' : '$comments.comment_text',
-                                             'creation_date' : '$comments.creation_date'});
-
-    //                                await Auction.aggregate( [ { $match : { _id: Auction.Types.ObjectId(req.params.id)} },
-    // { $unwind : "$messages" } ,
-    // { $sort : { 'messages.createDate' : -1} },
-    //  { $limit : 2 },{ $skip : 2 }
-    //  { $project : { _id: 0,'message':'$messages.message','user':'$messages.user'} } ]
-
-         console.log("find 2", result);                  
-         res.result(200,result);
+                                             'creation_date' : '$comments.creation_date'})
+                                    //.sort('-comments.creation_date')
+                                    
+                                   //.skip(recordLimit*page)
+                                   .limit(recordLimit);
+        var totalCount = 0;
+        if(result.length > 0)
+{
+        var count =  await  Auction.aggregate()
+                                   .match({ _id: mongoose.Types.ObjectId(req.params.id)})
+                                   .unwind('comments')
+                                   .project({'comment_text' : '$comments.comment_text'})
+                                   .group({"_id": null,"totalCount": { "$sum": 1 }});
+        totalCount = count[0].totalCount;
+}
+        
+                     
+         res.result(200,{result,totalCount});
         
         }catch(err)
         {

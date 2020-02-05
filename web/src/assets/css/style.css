@@ -209,6 +209,22 @@ footer .cpy {
 
 }
 
+.main-panel {
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.Notstick-rgt-25 {
+  position: relative;;
+  right: 25px;
+
+}
+
+.search-results {
+  height: 20rem;
+  overflow: scroll;
+}
+
 .box{
   margin-bottom: 20px;
 }

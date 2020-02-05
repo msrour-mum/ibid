@@ -10,7 +10,7 @@ import {DataService} from 'src/app/services/data.service';
 export class CommentsComponent implements OnInit {
 
   @Input() auctionId: string;
-  @Output() commentCount: number = 0;
+  commentCount = 0;
   @Input() comments;
 
 
@@ -18,7 +18,7 @@ export class CommentsComponent implements OnInit {
               private dataService: DataService) {
 
     this.commentsService.newCommentEmitter
-      .subscribe((data) => this.commentCount = data['value']);
+      .subscribe((data) => this.commentCount += data['value']);
   }
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class CommentsComponent implements OnInit {
     //publish auction id & comments to subscribers
     this.dataService.auctionIdEmitter.emit(this.auctionId);
     this.dataService.commentsEmitter.emit(this.comments);
-    console.log('coo',this.comments)
+  
 
   }
 
