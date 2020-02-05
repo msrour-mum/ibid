@@ -31,9 +31,9 @@ export class AppComponent {
   }
 
   onSubmit(): void {
-    this.router.navigate(['search'],
-      {queryParams: {q: this.searchForm.get('search').value}});
+    let search = this.searchForm.get('search').value;
     this.searchForm.reset();
+    this.router.navigate(['search'], {queryParams: {q: search}});
   }
 
 }
