@@ -41,7 +41,7 @@ export class AuctionsApiService {
 
   public search(query) {
     const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
-    return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(
+    return this.httpClient.get<Auction[]>(this.REST_API_SERVER+'/search?q='+query, options).pipe(
       map((result: any) => result.data),
       retry(3), catchError(this.handleError));
   }

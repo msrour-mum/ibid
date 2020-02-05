@@ -56,3 +56,5 @@ server/logs.log
 server/.vscode/
 
 .vscode/
+
+server/assets/images/
