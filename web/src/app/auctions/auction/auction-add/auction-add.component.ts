@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Auction} from '../../auction';
 import {Subject} from 'rxjs';
@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import {AppValidator} from '../../../app-validator';
 import {AuthenticationService} from '../../../authentication/services/authentication.service';
 import {Router} from '@angular/router';
+import {AppConfig} from "../../../config/app.config";
 
 @Component({
   selector: 'app-auction-add',
@@ -29,13 +30,20 @@ export class AuctionAddComponent implements OnInit {
         title: ['', Validators.required],
         description: ['', Validators.required],
         init_price: [0, [Validators.required, AppValidator.isPrice]],
-        expiry_date: [this.currentDate, Validators.required]
+        expiry_date: [this.currentDate, Validators.required],
+        photo:['']
       });
 
   }
 
   ngOnInit() {
+  }
 
+  onFileSelect(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.frm.get('photo').setValue(file);
+    }
   }
 
   ngOnDestroy() {
@@ -66,7 +74,12 @@ export class AuctionAddComponent implements OnInit {
 
     this.auction.count_comments = this.auction.count_dislike = this.auction.count_like = this.auction.count_bids = 0;
     this.auction.user = this.authService.currentUser;
-    this.dataService.save(this.auction).subscribe(( err:any) => {
+
+    let formData: any = new FormData();
+    formData.append("payload", JSON.stringify(this.auction));
+    formData.append("photo", this.frm.get('photo').value);
+
+    this.dataService.save(formData).subscribe(( err:any) => {
       // console.log('add auction : ',resp);
       // if (err) {
       //   this.errorMsg = err;

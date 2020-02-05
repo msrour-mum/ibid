@@ -81,7 +81,10 @@ var findUserAuction = async function(req, res, next)
 var save = async function(req, res,next)
 {
     try{
-        const auction = new Auction(req.body);
+        let payload = JSON.parse(req.body.payload);
+
+        const auction = new Auction(payload);
+        auction.photosUrl.push(`pictures/${req.file.filename}`);
         console.log("save : ",auction)
         var result =  await auction.save();  
 
