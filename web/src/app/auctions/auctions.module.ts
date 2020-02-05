@@ -20,6 +20,7 @@ import {AppCommonModule} from '../app-common/app-common.module';
 
 import { BidListComponent } from './bid/bid-list/bid-list.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ChartModule } from 'angular-highcharts';
 
 const routes = [
   {path: ':auctionId', component: AuctionItemComponent, pathMatch: 'full'},
@@ -36,8 +37,9 @@ const routes = [
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    AppCommonModule
-
+    AppCommonModule,
+    InfiniteScrollModule,
+    ChartModule
 
   ],
   exports: [

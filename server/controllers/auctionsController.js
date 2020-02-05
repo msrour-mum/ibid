@@ -44,6 +44,38 @@ var find = async function (req, res, next) {
     }
 }
 
+
+var findInfiniteScroll = async function (req, res, next) {
+    try {
+
+        let page = req.query._page || 1;
+        recordLimit = req.query._limit || recordLimit;
+
+        page = parseInt(page);
+        recordLimit = parseInt(recordLimit);
+
+        await Auction.createIndexes();
+
+
+        console.log('Before findInfiniteScroll:');
+        var result = await Auction.paginate({status : req.query.status}, 
+            { 
+                page: page, 
+                limit: recordLimit,
+                sort:'-creation_date',
+                select:select
+             });
+            
+          
+
+        res.result(200, result);
+
+    } catch (err) {
+        
+        return res.error(500, 1000, err.message);
+    }
+}
+
 var findOne = async function (req, res, next) {
     try {
 
@@ -146,6 +178,36 @@ var search = async function (req, res, next) {
     }
 }
 
+
+
+var topUsers = async function (req, res, next) {
+    try {
+
+      
+        recordLimit = req.query._limit || recordLimit;
+        recordLimit = parseInt(recordLimit);
+       
+        var result =  await  Auction.aggregate()                           
+        .group({
+             _id:{email:"$user.email", name:"$user.name"}, 
+             countTopUsers:{$sum:1} })
+        .project({
+                  '_id' : 0,
+                  'name': '$_id.name',
+                'countTopUsers':'$countTopUsers'})
+        .limit(recordLimit);
+
+
+
+        res.result(200, result);
+
+    } catch (err) {
+        console.log(err);
+
+        return res.error(500, 1000, err.message);
+    }
+}
+
 module.exports = {
     find,
     findOne,
@@ -153,5 +215,7 @@ module.exports = {
     search,
     addBid,
     like,
-    findUserAuction
+    findUserAuction,
+    findInfiniteScroll,
+    topUsers
 };

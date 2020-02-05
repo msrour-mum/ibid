@@ -21,16 +21,16 @@ var auctionSchema = mongoose.Schema({
     expiry_date:Date,
     init_price:{type:Number, default:0},
     bid_price : {type:Number, default:0},
-    bids:{type:[{user: {name: String, email:String, photoUrl:String}, creation_date:Date, price: Number}],default:[]},  
-    comments:[{user:{name: String, email:String, photoUrl:String}, creation_date:{type:Date,default:Date.now}, comment_text:String}],  
-    likes: [{user:{name: String, email:String, photoUrl:String}, is_like: Boolean}],
+    bids:{type:[{user: {_id : String ,name: String, email:String, photoUrl:String}, creation_date:Date, price: Number}],default:[]},  
+    comments:[{user:{_id : String ,name: String, email:String, photoUrl:String}, creation_date:{type:Date,default:Date.now}, comment_text:String}],  
+    likes: [{user:{_id : String ,name: String, email:String, photoUrl:String}, is_like: Boolean}],
     count_bids: {type:Number, default:0},
     count_comments: {type:Number, default:0},
     count_like: {type:Number, default:0},
     count_dislike:{type:Number, default:0},
     status: { type: String, default: 'Open' }, //Initiated | Open | Sold | Expired'
     location:[Number],
-    winner:{name: String, email:String, photoUrl:String},
+    winner:{_id : String ,name: String, email:String, photoUrl:String},
     photosUrl:[String] 
 },
 {timestamps: { 
@@ -65,6 +65,9 @@ auctionSchema.post('save', async function(auction) {
         max(bid => bid.price)
       );
 
+      
+      console.log('winnerBid.user',winnerBid.user);
+      console.log('winnerBid',winnerBid);
       if(!(typeof winnerBid === 'undefined'))
       {
         auction.winner = winnerBid.user;

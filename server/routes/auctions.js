@@ -5,6 +5,9 @@ var router = express.Router();
 const authGaurd = require('../middelwares/authGaurd');
 const uploader = require('../middelwares/uploader');
 
+
+router.get('/topUsers', controller.topUsers);
+router.get('/infiniteScroll', controller.findInfiniteScroll);
 router.get('/search', authGaurd, controller.search);
 router.get('', authGaurd, controller.find);
 router.get('/:id', authGaurd, controller.findOne);

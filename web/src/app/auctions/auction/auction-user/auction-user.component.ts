@@ -4,6 +4,7 @@ import {AuctionsApiService} from '../../auctions-api.service';
 import {AuthenticationService} from '../../../authentication/services/authentication.service';
 import {Auction} from '../../../models/auction';
 
+
 @Component({
   selector: 'app-auction-user',
   templateUrl: './auction-user.component.html',
@@ -13,14 +14,18 @@ export class AuctionUserComponent implements OnInit {
 
   lstAuctions: Observable<Auction[]>;
   destroy$: Subject<boolean> = new Subject<boolean>();
-
+  
   constructor(private dataService: AuctionsApiService, private authService: AuthenticationService) {
   }
 
   ngOnInit() {
-  //  this.lstAuctions = this.dataService.listUserAuctions(this.authService.currentUser.email);
-
+    
+   
+    // add point to chart serie
+    
   }
+
+ 
 
 }
 

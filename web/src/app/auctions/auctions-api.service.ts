@@ -23,6 +23,22 @@ export class AuctionsApiService {
       map(data => data.filter(d => d.status == 'Open')),
       retry(3), catchError(this.handleError));
   }
+
+  public listInfiniteScroll( page, limit,status= 'Open' ) {
+    const options = {params: new HttpParams({fromString: `_page=${page}&_limit=${limit}&status=${status}`})};
+    return this.httpClient.get<Auction[]>(this.REST_API_SERVER+'/infiniteScroll', options).pipe(
+      map((result: any) => result.data),
+     
+      retry(3), catchError(this.handleError));
+  }
+
+  public topUsers(limit) {
+    const options = {params: new HttpParams({fromString: `_limit=${limit}&status=${status}`})};
+    return this.httpClient.get<Auction[]>(this.REST_API_SERVER+'/topUsers', options).pipe(
+      map((result: any) => result.data),
+      retry(3), catchError(this.handleError));
+  }
+  
   public listUserAuctions(userId: string , page) {
     const options = {params: new HttpParams({fromString: '_page='+ page +'&_limit=10'})};
     return this.httpClient.get<Auction[]>(this.REST_API_SERVER + '/users/' + userId + '/auctions', options).pipe(

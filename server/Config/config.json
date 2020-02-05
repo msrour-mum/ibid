@@ -2,7 +2,7 @@
   "development": {
     "config_id": "development",
     "node_port": 4000,
-    "database": "my-app-db-dev",
+    "database": "mongodb+srv://ibid:ibid135@cluster0-g1iny.mongodb.net/iBid?retryWrites=true&w=majority",
     "secret": "helloworld",
     "token_expiry":"1d",
     "storageDir": "./assets/images"

@@ -229,7 +229,7 @@ footer .cpy {
 
 }
 
-.search-results {
+. -results {
   height: 20rem;
   overflow: scroll;
 }
@@ -346,5 +346,7 @@ footer .cpy {
   display: block !important;
 }
 
-
+.search-results {
+  height: 100%;
+}
 

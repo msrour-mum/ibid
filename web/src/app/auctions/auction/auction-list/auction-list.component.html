@@ -1,4 +1,5 @@
-<div class="row" *ngIf="(lstAuctions|async)">
+
+<div class="row" *ngIf="(lstAuctions|async)" >
   <div *ngFor="let auction of lstAuctions|async" class="col-sm-12 col-md-8 order-line-box">
     <div var="cartItem">
       <div class="card border-info mb-3">
