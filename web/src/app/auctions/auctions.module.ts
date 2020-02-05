@@ -4,7 +4,6 @@ import {CommonModule} from '@angular/common';
 import {RatingComponent} from './rating/rating.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from '../app-routing.module';
-import {UtilModule} from '../util/util.module';
 
 import {AuctionItemComponent} from './auction/auction-item/auction-item.component';
 import {AuctionListComponent} from './auction/auction-list/auction-list.component';
@@ -13,7 +12,12 @@ import {CommentAddComponent} from './comments/comment-add/comment-add.component'
 import {CommentItemComponent} from './comments/comment-item/comment-item.component';
 import {CommentListComponent} from './comments/comment-list/comment-list.component';
 import {CommentsComponent} from './comments/comments.component';
-import {ResultsLabelPipe} from '../pipes/results-label.pipe';
+
+import {AuctionSearchComponent} from './auction/auction-search/auction-search.component';
+import {AuctionHomeComponent} from './auction/auction-home/auction-home.component';
+import {AuctionUserComponent} from './auction/auction-user/auction-user.component';
+import {AppCommonModule} from '../app-common/app-common.module';
+
 import { BidListComponent } from './bid/bid-list/bid-list.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
@@ -24,20 +28,22 @@ const routes = [
 
 
 @NgModule({
-  declarations: [ RatingComponent, BidListComponent, AuctionItemComponent, AuctionListComponent, AuctionAddComponent ,
-    CommentAddComponent, CommentItemComponent, CommentListComponent, CommentsComponent, ResultsLabelPipe, BidListComponent],
+  declarations: [RatingComponent, BidListComponent, AuctionItemComponent, AuctionListComponent, AuctionAddComponent,
+    CommentAddComponent, CommentItemComponent, CommentListComponent, CommentsComponent,
+    BidListComponent, AuctionSearchComponent, AuctionHomeComponent, AuctionUserComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    UtilModule,
-    InfiniteScrollModule
+    AppCommonModule
+
 
   ],
   exports: [
-     RatingComponent, BidListComponent, AuctionItemComponent, AuctionListComponent, AuctionAddComponent,
-    CommentAddComponent, CommentItemComponent, CommentListComponent, CommentsComponent
+    RatingComponent, BidListComponent, AuctionItemComponent, AuctionListComponent, AuctionAddComponent,
+    CommentAddComponent, CommentItemComponent, CommentListComponent, CommentsComponent, AuctionSearchComponent,
+    AuctionUserComponent
   ]
 })
 export class AuctionsModule {

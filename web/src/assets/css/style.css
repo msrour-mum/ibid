@@ -1,6 +1,12 @@
 html{
   font-size: 15px;
 }
+body, html, .container-fluid, .container {
+min-height: 70vh;
+}
+.container-fluid, .container {
+  padding-top: 40px;
+}
 footer {
     min-height: 200px !important;
     padding: 0 20px;
@@ -146,6 +152,9 @@ footer .cpy {
     /*position: absolute;*/
     margin-top: 35px;
     bottom: 10px;
+}
+.pd-lft-0 {
+  padding-left:0 !important;
 }
 
 .mr-btm-10

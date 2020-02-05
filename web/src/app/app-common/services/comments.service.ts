@@ -5,8 +5,8 @@ import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry, finalize, map} from 'rxjs/operators';
 
-import {Comment} from '../models/comments';
-import {AppConfig} from '../config/app.config';
+import {Comment} from '../../models/comments';
+import {AppConfig} from '../../config/app.config';
 
 
 
@@ -23,10 +23,10 @@ export class CommentsService {
 
 /**
  * Creates an instance of comments service, and intializing url, options
- * @param httpClient => dependency injection 
+ * @param httpClient => dependency injection
  */
 constructor(private httpClient: HttpClient) {
-    
+
     this.REST_API_SERVER = AppConfig.settings.apiServiceUrl + 'auctions/';
     this.RETRY_COUNT = AppConfig.settings.retryCount;
     
@@ -55,12 +55,12 @@ constructor(private httpClient: HttpClient) {
       );
   }
 
-   
-   
+
+
 
 
 /**
- * Shall be removed, centerlized in one place 
+ * Shall be removed, centerlized in one place
  */
 handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';

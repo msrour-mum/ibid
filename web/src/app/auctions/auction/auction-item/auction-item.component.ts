@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
-import {Auction} from '../../auction';
+import {Auction} from '../../../models/auction';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {AuctionsApiService} from '../../auctions-api.service';
-import {EmitterService} from '../../../util/emitter.service';
+import {EmitterService} from '../../../app-common/services/emitter.service';
 import {AuthenticationService} from '../../../authentication/services/authentication.service';
-import {AppConfig} from "../../../config/app.config";
+import {AppConfig} from '../../../config/app.config';
+
 
 @Component({
   selector: 'app-auction-item',
@@ -20,11 +21,10 @@ export class AuctionItemComponent implements OnInit {
   private auction: Auction;
   private hostUrl: string;
   frmBid: FormGroup;
-  frmLike: FormGroup;
-  frmDislike: FormGroup;
+
   validateMsgType: string;
   validateMsg: string;
-  successMsg :string;
+  successMsg: string;
 
   constructor(private activeRouter: ActivatedRoute, private dataService: AuctionsApiService, private  fb: FormBuilder,
               private emitterService: EmitterService, private authService: AuthenticationService) {
@@ -36,8 +36,7 @@ export class AuctionItemComponent implements OnInit {
       {
         bid: ['', Validators.required]
       });
-    this.frmLike = fb.group({});
-    this.frmDislike = fb.group({});
+
 
   }
 
@@ -51,6 +50,9 @@ export class AuctionItemComponent implements OnInit {
     this.dataService.loadOne(this.auctionId).subscribe((data: any) => {
       this.auction = data;
       this.emitterService.emitValue(data);
+      console.log('loadOneAuction : ', this.auction)
+
+
     });
   }
 
@@ -63,12 +65,12 @@ export class AuctionItemComponent implements OnInit {
 
     if (parseFloat(this.frmBid.value.bid) < 0) {
       this.validateMsg = 'bid price could not be negative number';
-      this.validateMsgType='warning';
+      this.validateMsgType = 'warning';
       return;
     }
     if (parseFloat(this.frmBid.value.bid) < this.auction.bid_price) {
       this.validateMsg = 'Your price could not be less than current bid price';
-      this.validateMsgType='warning';
+      this.validateMsgType = 'warning';
       return;
     }
 
@@ -80,30 +82,11 @@ export class AuctionItemComponent implements OnInit {
       // console.log('add auction : ', resp);
     });
     this.loadOneAuction();
-    //this.frmBid.controls['bid'].setValue(0);
-   // this.frmBid.controls['bid'].
 
-    //this.frmBid.disabled=false;
-    this.validateMsgType='success';
+    this.validateMsgType = 'success';
     this.successMsg = 'current item price is : ' + price;
   }
 
-  OnLike() {
-    this.saveLike(true);
-  }
-
-  OnDislike() {
-    this.saveLike(false);
-  }
-
-  saveLike(islike: boolean) {
-    let user = this.authService.currentUser;
-    let likeItem = {user: user, is_like: islike};
-    this.dataService.like(this.auctionId, likeItem).subscribe(resp => {
-      //console.log('add auction : ', resp);
-    });
-    this.loadOneAuction();
-  }
 
 
   hasError(controlName, validationType) {

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Auction} from '../../auction';
-import {EmitterService} from '../../../util/emitter.service';
-import {AppConfig} from "../../../config/app.config";
+import {Component, Input, OnInit} from '@angular/core';
+import {Auction} from '../../../models/auction';
+import {EmitterService} from '../../../app-common/services/emitter.service';
+import {AppConfig} from '../../../config/app.config';
 
 @Component({
   selector: 'app-bid-list',
@@ -9,12 +9,11 @@ import {AppConfig} from "../../../config/app.config";
   styleUrls: ['./bid-list.component.css']
 })
 export class BidListComponent implements OnInit {
-  private auction: Auction;
+  @Input() auction: Auction;
   private hostUrl: string;
   constructor(private emitterService: EmitterService) {
   }
   ngOnInit() {
     this.hostUrl = AppConfig.settings.apiServiceUrl;
-    this.emitterService.emitter.subscribe(data => this.auction = data);
   }
 }

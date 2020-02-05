@@ -1,0 +1,6 @@
+<div class="container">
+  <h2>My Auctions</h2>
+  <app-auction-list [lstAuctions]="lstAuctions"></app-auction-list>
+
+  <h3 *ngIf="(lstAuctions.length==0 )">No Auctions available</h3>
+</div>

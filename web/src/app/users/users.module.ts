@@ -4,11 +4,16 @@ import { LoginComponent } from '../authentication/login/login.component';
 import { SignupComponent } from '../authentication/signup/signup.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ProfileComponent } from './profile/profile.component';
+import { UserAuctionsComponent } from './user-auctions/user-auctions.component';
+import {AuctionsModule} from '../auctions/auctions.module';
+import {AppCommonModule} from '../app-common/app-common.module';
 
 @NgModule({
-  declarations: [ProfileComponent],
+  declarations: [ProfileComponent, UserAuctionsComponent],
+  exports: [ProfileComponent, UserAuctionsComponent],
+
   imports: [
-    CommonModule
+    CommonModule , AuctionsModule,AppCommonModule
   ]
 })
 export class UsersModule { }

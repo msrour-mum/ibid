@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthenticationService} from "../services/authentication.service";
 import {SubSink} from "subsink";
 import {Router} from "@angular/router";
+import {AuthenticationService} from '../services/authentication.service';
 
 @Component({
   selector: 'app-signup',

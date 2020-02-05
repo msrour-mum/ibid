@@ -1,9 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CommentsService } from 'src/app/services/comments.service';
+
 import { Comment } from 'src/app/models/comments';
-import { DataService } from 'src/app/services/data.service';
+
 import { Observable, merge, of, throwError} from 'rxjs';
 import { map } from 'rxjs/operators';
+import { CommentsService } from 'src/app/app-common/services/comments.service';
+import { DataService } from 'src/app/app-common/services/data.service';
 
 
 
@@ -26,7 +28,7 @@ export class CommentListComponent implements OnInit {
   limit= 10;
 
   constructor(private commentsService: CommentsService,
-    private dataService: DataService) { 
+              private dataService: DataService) {
 
       this.dataService.auctionIdEmitter
       .subscribe(id => {
@@ -53,7 +55,7 @@ export class CommentListComponent implements OnInit {
        this.comments = merge(this.comments, of(commentsList))
        .pipe(map(commentList => commentList.sort(this.compareFn))); 
        
-       
+       this.commentListCount+=1;
       
        
       });

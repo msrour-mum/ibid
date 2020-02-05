@@ -10,7 +10,7 @@
  [scrollWindow]="false"
 > -->
 
-<div  
+<div  class="search-results"
 
 >
 
@@ -19,4 +19,4 @@
 </div>
 
 
-<button class="btn btn-primary" (click)="onScroll()" >Show More</button>
+<button *ngIf="commentListCount>5" class="btn btn-primary" style="margin-top: 20px;" (click)="onScroll()" >Show More</button>

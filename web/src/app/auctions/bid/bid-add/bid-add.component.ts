@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {AuctionsApiService} from '../../auctions-api.service';
-import {EmitterService} from '../../../util/emitter.service';
+import {EmitterService} from '../../../app-common/services/emitter.service';
 import {Subject} from 'rxjs';
-import {Auction} from '../../auction';
 import {AuthenticationService} from '../../../authentication/services/authentication.service';
+import {Auction} from '../../../models/auction';
 
 @Component({
   selector: 'app-bid-add',

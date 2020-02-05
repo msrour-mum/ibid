@@ -15,6 +15,8 @@ router.post('', authGaurd,
 router.post('/:id/bids', controller.addBid);
 router.post('/:id/likes', controller.like);
 
+router.get('/users/:id/auctions', authGaurd, controller.findUserAuction);
+
 router.get('/:id/comments', commentsController.find);
 router.post('/:id/comments', commentsController.save);
 

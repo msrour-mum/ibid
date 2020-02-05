@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
-import {Auction} from './auction';
+import {Auction} from '../models/auction';
 import {AppConfig} from '../config/app.config';
 
 @Injectable({
@@ -19,27 +19,40 @@ export class AuctionsApiService {
     const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
     return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(
       map((result: any) => result.data),
+      map(data => data.filter(d => d.status == 'Open')),
       retry(3), catchError(this.handleError));
   }
+
+  public listUserAuctions(userId: string) {
+    const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
+    return this.httpClient.get<Auction[]>(this.REST_API_SERVER + '/users/' + userId + '/auctions', options).pipe(
+      map((result: any) => result.data),
+      //map(data => data.filter(d => d.user.email == userEmail)),
+      retry(3), catchError(this.handleError));
+  }
+
   public loadOne(auctionId: any) {
     const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
-    console.log(this.REST_API_SERVER + '/' + auctionId)
+    console.log(this.REST_API_SERVER + '/' + auctionId);
     return this.httpClient.get<Auction[]>(this.REST_API_SERVER + '/' + auctionId, options).pipe(
       map((result: any) => result.data),
       retry(3), catchError(this.handleError));
   }
+
   public search(query) {
     const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
-    return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(
+    return this.httpClient.get<Auction[]>(this.REST_API_SERVER+'/search?q='+query, options).pipe(
       map((result: any) => result.data),
       retry(3), catchError(this.handleError));
   }
+
   public listComment(id) {
     const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
     return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(
       map((result: any) => result.data),
       retry(3), catchError(this.handleError));
   }
+
   public listbids(id) {
     const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
     return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(
@@ -62,28 +75,30 @@ export class AuctionsApiService {
         catchError(this.handleError)
       );
   }
+
   bid(auctionId: any, bidItem: any): Observable<Auction> {
-    console.log('u : ',this.REST_API_SERVER+ '/' + auctionId+ '/bids')
-    return this.httpClient.post<Auction>(this.REST_API_SERVER+ '/' + auctionId+ '/bids', bidItem)
+    console.log('u : ', this.REST_API_SERVER + '/' + auctionId + '/bids');
+    return this.httpClient.post<Auction>(this.REST_API_SERVER + '/' + auctionId + '/bids', bidItem)
       .pipe(
         catchError(this.handleError)
       );
   }
 
   like(auctionId: any, bidItem: any): Observable<Auction> {
-    return this.httpClient.post<Auction>(this.REST_API_SERVER+ '/' + auctionId+ '/likes', bidItem)
+    return this.httpClient.post<Auction>(this.REST_API_SERVER + '/' + auctionId + '/likes', bidItem)
       .pipe(
         catchError(this.handleError)
       );
   }
 
   dislike(auctionId: any, bidItem: any): Observable<Auction> {
-    console.log('u : ',this.REST_API_SERVER+ '/' + auctionId+ '/bids')
-    return this.httpClient.post<Auction>(this.REST_API_SERVER+ '/' + auctionId+ '/bids', bidItem)
+    console.log('u : ', this.REST_API_SERVER + '/' + auctionId + '/bids');
+    return this.httpClient.post<Auction>(this.REST_API_SERVER + '/' + auctionId + '/bids', bidItem)
       .pipe(
         catchError(this.handleError)
       );
   }
+
   rate(auction: Auction): Observable<Auction> {
     return this.httpClient.post<Auction>(this.REST_API_SERVER, auction)
       .pipe(

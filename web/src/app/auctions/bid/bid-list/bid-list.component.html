@@ -14,7 +14,7 @@
             <tr data-status="pagado" *ngFor="let bid of auction.bids">
               <td>
                 <div class="media">
-                  <a href="#" class="pull-left">
+                  <a [routerLink]="['/user', bid.user._id, 'auctions']" class="pull-left">
                     <img src="{{hostUrl + bid.user.photoUrl}}"
                          class="media-photo">
                   </a>

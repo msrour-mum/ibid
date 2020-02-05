@@ -25,7 +25,7 @@
           </div>
           <div class="form-group">
             <label for="expiry_date">Expiry Date</label>
-            <input type="date" [formControl]="frm.get('expiry_date')" [value]="currentDate | date:'yyyy-MM-dd'" class="form-control" id="expiry_date" name="expiry_date" aria-describedby="emailHelp" placeholder="Enter expiry date">
+            <input type="datetime-local" [formControl]="frm.get('expiry_date')" [value]="currentDate | date:'yyyy-MM-dd'" class="form-control" id="expiry_date" name="expiry_date" aria-describedby="emailHelp" placeholder="Enter expiry date">
             <small *ngIf="!frm.get('expiry_date').valid"  class="form-text text-muted">please enter this field</small>
           </div>
 
