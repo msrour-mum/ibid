@@ -136,37 +136,7 @@ var search = async function (req, res, next) {
 
         page = parseInt(page);
         recordLimit = parseInt(recordLimit);
-
-        console.log('q', req.query.q)
-        //   console.log('q',q)
-        //    var result = await Auction.find(({text: {search: req.query.q}}))
-        //    //.limit(recordLimit)
-        //    //.skip(recordLimit*0)
-        //    //.select(select)
-        //    .exec();
-
-       // var result = Auction.find({text: {search: req.query.q}})
-        // .skip(recordLimit*page)
-        // .limit(recordLimit)
-        // .exec();
-
-
-
-        /*var result = Auction.find({$text: {$search: req.query.q}}, {
-            score: {
-                $meta: 'textScore'
-            }
-        }).sort({
-            score: {
-                $meta: 'textScore'
-            }
-        })*/
-
-        //var result = await Auction.find({ "description": { "$regex": req.query.q, "$options": "i" } })
-
         var result = await Auction.find({ $text: { $search: req.query.q } })
-
-        console.log(res.result);
         res.result(200, result);
 
     } catch (err) {

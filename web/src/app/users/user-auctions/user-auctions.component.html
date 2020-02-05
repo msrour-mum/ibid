@@ -4,3 +4,22 @@
 
   <h3 *ngIf="(lstAuctions.length==0 )">No Auctions available</h3>
 </div>
+<div class="row">
+  <div class="col">
+    <form [formGroup]="frmPrevious" (ngSubmit)="onPrevious()">
+      <button id="btnPrevious" name="btnPrevious" type="submit" class="btn btn-primary ">
+        Previous
+      </button>
+    </form>
+    <div>
+    </div>
+  </div>
+  <div class="col float-right">
+
+    <form [formGroup]="frmNext" (ngSubmit)="onNext()">
+      <button id="btnNext" name="btnNext" type="submit" class="btn btn-primary">
+        Next
+      </button>
+    </form>
+  </div>
+</div>

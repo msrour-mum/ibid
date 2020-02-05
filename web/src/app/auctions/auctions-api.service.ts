@@ -15,19 +15,18 @@ export class AuctionsApiService {
     this.REST_API_SERVER = AppConfig.settings.apiServiceUrl + 'auctions';
   }
 
-  public list() {
-    const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
+
+  public list( page ) {
+    const options = {params: new HttpParams({fromString: '_page='+ page +'&_limit=10'})};
     return this.httpClient.get<Auction[]>(this.REST_API_SERVER, options).pipe(
       map((result: any) => result.data),
       map(data => data.filter(d => d.status == 'Open')),
       retry(3), catchError(this.handleError));
   }
-
-  public listUserAuctions(userId: string) {
-    const options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
+  public listUserAuctions(userId: string , page) {
+    const options = {params: new HttpParams({fromString: '_page='+ page +'&_limit=10'})};
     return this.httpClient.get<Auction[]>(this.REST_API_SERVER + '/users/' + userId + '/auctions', options).pipe(
       map((result: any) => result.data),
-      //map(data => data.filter(d => d.user.email == userEmail)),
       retry(3), catchError(this.handleError));
   }
 
