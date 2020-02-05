@@ -1,5 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
+const config = require('./config/config.js');
+
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -30,9 +32,7 @@ app.use("*", (req, res, next) =>
 });
 
 //Set up default mongoose connection
-//var mongoDB = 'mongodb://localhost/27017/iBid'; 
-var mongoDB = 'mongodb+srv://ibid:ibid135@cluster0-g1iny.mongodb.net/iBid?retryWrites=true&w=majority';
-mongoose.connect(mongoDB, { 
+mongoose.connect(global.gConfig.database, {
   useNewUrlParser: true,
   useUnifiedTopology: true, 
   useCreateIndex: true});
@@ -58,7 +58,7 @@ app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 
 process.env.NODE_ENV = 'development';
-const config = require('./config/config.js');
+
 app.get('/', (req, res) => {
   res.json(global.gConfig);
 });
