@@ -23,6 +23,10 @@ import {AuthGuard} from "./util/authGaurd";
 import {AuctionItemComponent} from './auctions/auction/auction-item/auction-item.component';
 import {AuctionListComponent} from './auctions/auction/auction-list/auction-list.component';
 import {AuctionAddComponent} from './auctions/auction/auction-add/auction-add.component';
+import {AuctionHomeComponent} from './auctions/auction/auction-home/auction-home.component';
+import {UserAuctionsComponent} from './users/user-auctions/user-auctions.component';
+import {AuctionUserComponent} from './auctions/auction/auction-user/auction-user.component';
+import {UsersModule} from './users/users.module';
 
 
 export function initializeApp(appConfig: AppConfig) {
@@ -31,10 +35,12 @@ export function initializeApp(appConfig: AppConfig) {
 
 const routes = [
   {path: '', component: AuctionListComponent, canActivate: [AuthGuard] },
-  {path: 'home', component: AuctionListComponent, canActivate: [AuthGuard]  },
+  {path: 'home', component: AuctionHomeComponent, canActivate: [AuthGuard]  },
   {path: 'auctions/:auctionId', component: AuctionItemComponent , canActivate: [AuthGuard] },
+  {path: 'user/auctions', component: UserAuctionsComponent , canActivate: [AuthGuard] },
+  //{path: 'user/auctions', component: AuctionUserComponent , canActivate: [AuthGuard] },
   {path: 'auctions', component: AuctionAddComponent, canActivate: [AuthGuard]  },
-  {path: 'profile', component: AuctionListComponent, canActivate: [AuthGuard]  },
+  {path: 'profile', component: AuctionHomeComponent, canActivate: [AuthGuard]  },
   {path: 'login', component: LoginComponent  },
   {path: 'signup', component: SignupComponent},
   //{path: 'new', component: ListComponent, pathMatch: 'full' },
@@ -53,6 +59,7 @@ const routes = [
     AppRoutingModule,
     HttpClientModule,
     AuctionsModule,
+    UsersModule,
     RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules}),
     ReactiveFormsModule
   ],

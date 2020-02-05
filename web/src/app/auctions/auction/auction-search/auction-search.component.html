@@ -1,4 +1,5 @@
-
+<div class="container">
+  <h2>Auctions</h2>
   <div class="row" *ngIf="(lstAuctions|async)">
     <div *ngFor="let item of lstAuctions|async" class="col-sm-12 col-md-8 order-line-box">
       <div var="cartItem">
@@ -49,31 +50,25 @@
               </div>
             </div>
             <div class="row">
-              <app-rating [auction]="item"></app-rating>
-
+              <div class="order-line-cmd">
+                                <span class="prodcut-cmd-icon" title="likes">
+                                    <button type="submit" class="btn btn-primary">
+                                        +<i class="fas fa-plus">{{item.count_like}}</i>
+                                    </button>
+                                </span>
+                <span class="prodcut-cmd-icon" title="dislikes">
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fas fa-minus">-{{item.count_dislike}}</i>
+                                    </button>
+                                </span>
+              </div>
               <div class="order-line-cmd-rgt">
                 <div class="prodcut-cmd-icon ">
 
-                  <div *ngIf="(item.status=='Initiated')">
-                    <a [routerLink]="['/auctions',item._id]" class="btn btn-primary">
-                      Bid
-                    </a>
-                  </div>
-
-
+                  <a [routerLink]="['/auctions',item._id]" class="btn btn-primary">
+                    Bid
+                  </a>
                 </div>
-              </div>
-
-
-
-            </div>
-
-
-          </div>
-          <div class="row">
-            <div class="col" >
-              <div class="alert alert-success " role="alert"  *ngIf="(item.winner)">
-                <strong> winner : </strong> {{item.winner.name}}
               </div>
             </div>
           </div>
@@ -81,3 +76,4 @@
       </div>
     </div>
   </div>
+</div>

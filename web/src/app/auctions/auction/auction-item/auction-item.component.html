@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>Bid2</h2>
+  <h2>Auction Details</h2>
   <div class="row">
     <!--Bid-->
 
@@ -56,32 +56,11 @@
 
 
             <div class="row">
-              <div class="order-line-cmd" >
-                                <span class="prodcut-cmd-icon" title="likes">
-
-                                    <form [formGroup]="frmLike" (ngSubmit)="OnLike()" class="col"
-                                          style="display: inline">
-
-                                        <button type="submit" class="btn btn-primary fas fa-plus">
-                                            {{auction.count_like}} </button>
-
-
-                                    </form>
-                                </span>
-
-                <span class="prodcut-cmd-icon" title="dislikes">
-
-                                    <form [formGroup]="frmDislike" (ngSubmit)="OnDislike()" class="col"
-                                          style="display: inline">
-                                        <button type="submit" class="btn btn-danger fas fa-minus">
-                                            {{auction.count_dislike}} </button>
-                                    </form>
-                                </span>
-              </div>
+              <app-rating [auction]="auction"></app-rating>
               <div class="order-line-cmd-rgt">
                 <div class="prodcut-cmd-icon ">
 
-                  <div>
+                  <div *ngIf="(auction.status=='Initiated')">
                     <form [formGroup]="frmBid" (ngSubmit)="OnBid()" appAddBid  msgType="{{validateMsgType}}">
                       <div class="form-group">
                         <input type="number" [formControl]="frmBid.get('bid')" name="bid" id="bid"
@@ -111,6 +90,8 @@
                 </div>
               </div>
 
+
+
             </div>
 
 
@@ -122,6 +103,14 @@
               </div>
               <div class="alert alert-danger" role="alert" *ngIf="(validateMsg)">
                 <strong>Not Valid !</strong> {{validateMsg}}
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col" >
+              <div class="alert alert-success " role="alert"  *ngIf="(auction.winner)">
+                <strong> winner : </strong> {{auction.winner.name}}
               </div>
             </div>
           </div>

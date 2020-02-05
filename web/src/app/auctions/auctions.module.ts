@@ -15,6 +15,9 @@ import {CommentListComponent} from './comments/comment-list/comment-list.compone
 import {CommentsComponent} from './comments/comments.component';
 import {ResultsLabelPipe} from '../pipes/results-label.pipe';
 import { BidListComponent } from './bid/bid-list/bid-list.component';
+import { AuctionSearchComponent } from './auction/auction-search/auction-search.component';
+import { AuctionHomeComponent } from './auction/auction-home/auction-home.component';
+import { AuctionUserComponent } from './auction/auction-user/auction-user.component';
 
 
 const routes = [
@@ -25,7 +28,8 @@ const routes = [
 
 @NgModule({
   declarations: [ RatingComponent, BidListComponent, AuctionItemComponent, AuctionListComponent, AuctionAddComponent ,
-    CommentAddComponent, CommentItemComponent, CommentListComponent, CommentsComponent, ResultsLabelPipe, BidListComponent],
+    CommentAddComponent, CommentItemComponent, CommentListComponent, CommentsComponent, ResultsLabelPipe,
+    BidListComponent,  AuctionSearchComponent, AuctionHomeComponent, AuctionUserComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -36,7 +40,8 @@ const routes = [
   ],
   exports: [
      RatingComponent, BidListComponent, AuctionItemComponent, AuctionListComponent, AuctionAddComponent,
-    CommentAddComponent, CommentItemComponent, CommentListComponent, CommentsComponent
+    CommentAddComponent, CommentItemComponent, CommentListComponent, CommentsComponent, AuctionSearchComponent,
+    AuctionUserComponent
   ]
 })
 export class AuctionsModule {

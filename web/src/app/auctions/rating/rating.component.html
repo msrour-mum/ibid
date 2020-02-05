@@ -1,1 +1,23 @@
-<p>rating works!</p>
+<div class="order-line-cmd" >
+                                <span class="prodcut-cmd-icon" title="likes">
+
+                                    <form [formGroup]="frmLike" (ngSubmit)="OnLike()" class="col"
+                                          style="display: inline">
+
+                                        <button type="submit" class="btn btn-primary fas fa-plus">
+                                            {{auction.count_like}} </button>
+
+
+                                    </form>
+                                </span>
+
+  <span class="prodcut-cmd-icon" title="dislikes">
+
+                                    <form [formGroup]="frmDislike" (ngSubmit)="OnDislike()" class="col"
+                                          style="display: inline">
+                                        <button type="submit" class="btn btn-danger fas fa-minus">
+                                            {{auction.count_dislike}} </button>
+                                    </form>
+                                </span>
+</div>
+

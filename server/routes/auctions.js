@@ -11,4 +11,6 @@ router.post('', authGaurd, controller.save);
 router.post('/:id/bids', controller.addBid);
 router.post('/:id/likes', controller.like);
 
+router.get('/users/:email/auctions', authGaurd, controller.findUserAuction);
+
 module.exports = router;

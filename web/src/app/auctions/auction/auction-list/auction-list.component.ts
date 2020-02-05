@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {Auction} from '../../auction';
 import {AuctionsApiService} from '../../auctions-api.service';
+
+
 
 @Component({
   selector: 'app-auction-list',
@@ -10,14 +12,14 @@ import {AuctionsApiService} from '../../auctions-api.service';
 })
 export class AuctionListComponent implements OnInit {
 
-  lstAuctions: Observable<Auction[]>;
+  @Input() lstAuctions: Observable<Auction[]>;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private dataService: AuctionsApiService) {
   }
 
   ngOnInit() {
-    this.lstAuctions = this.dataService.list();
+    //this.lstAuctions = this.dataService.list();
 
   }
 

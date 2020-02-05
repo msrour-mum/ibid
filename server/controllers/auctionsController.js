@@ -63,6 +63,21 @@ var findOne = async function(req, res, next)
    
 }
 
+var findUserAuction = async function(req, res, next)
+{
+    try{
+
+        await Auction.createIndexes();
+        var result =  await Auction.find({'user.email':req.params.email});
+        res.result(200,result);
+
+    }catch(err)
+    {
+        return res.error(500,1000,err.message);
+    }
+
+}
+
 var save = async function(req, res,next)
 {
     try{
@@ -137,12 +152,18 @@ var search = async function(req, res, next)
         page = parseInt(page);
         recordLimit = parseInt(recordLimit);
         
-      
-        var result = await Auction.find(({text: {search: req.query.q}}))
-        .limit(recordLimit)
-        .skip(recordLimit*page)
-        .select(select)
-        .exec();
+      console.log('q', req.query.q)
+     //   console.log('q',q)
+     //    var result = await Auction.find(({text: {search: req.query.q}}))
+     //    //.limit(recordLimit)
+     //    //.skip(recordLimit*0)
+     //    //.select(select)
+     //    .exec();
+
+        var result = Auction.find({$text: {$search: req.query.q}})
+            // .skip(recordLimit*page)
+            // .limit(recordLimit)
+        //    .exec();
 
         console.log(res.result);
 
@@ -151,7 +172,9 @@ var search = async function(req, res, next)
         
     }catch(err)
     {
-       return res.error(500,1000,err.message);
+        console.log(err);
+
+        return res.error(500,1000,err.message);
     }
 }
     
@@ -161,5 +184,6 @@ module.exports = {
     save,
     search ,
     addBid ,
-    like
+    like ,
+    findUserAuction
 };

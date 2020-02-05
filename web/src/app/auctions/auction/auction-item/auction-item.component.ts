@@ -18,11 +18,10 @@ export class AuctionItemComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
   private auction: Auction;
   frmBid: FormGroup;
-  frmLike: FormGroup;
-  frmDislike: FormGroup;
+
   validateMsgType: string;
   validateMsg: string;
-  successMsg :string;
+  successMsg: string;
 
   constructor(private activeRouter: ActivatedRoute, private dataService: AuctionsApiService, private  fb: FormBuilder,
               private emitterService: EmitterService, private authService: AuthenticationService) {
@@ -34,8 +33,7 @@ export class AuctionItemComponent implements OnInit {
       {
         bid: ['', Validators.required]
       });
-    this.frmLike = fb.group({});
-    this.frmDislike = fb.group({});
+
 
   }
 
@@ -60,12 +58,12 @@ export class AuctionItemComponent implements OnInit {
 
     if (parseFloat(this.frmBid.value.bid) < 0) {
       this.validateMsg = 'bid price could not be negative number';
-      this.validateMsgType='warning';
+      this.validateMsgType = 'warning';
       return;
     }
     if (parseFloat(this.frmBid.value.bid) < this.auction.bid_price) {
       this.validateMsg = 'Your price could not be less than current bid price';
-      this.validateMsgType='warning';
+      this.validateMsgType = 'warning';
       return;
     }
 
@@ -78,29 +76,30 @@ export class AuctionItemComponent implements OnInit {
     });
     this.loadOneAuction();
     //this.frmBid.controls['bid'].setValue(0);
-   // this.frmBid.controls['bid'].
+    // this.frmBid.controls['bid'].
 
     //this.frmBid.disabled=false;
-    this.validateMsgType='success';
+    this.validateMsgType = 'success';
     this.successMsg = 'current item price is : ' + price;
   }
 
-  OnLike() {
-    this.saveLike(true);
-  }
+  /* OnLike() {
+     this.saveLike(true);
 
-  OnDislike() {
-    this.saveLike(false);
-  }
+   }
 
-  saveLike(islike: boolean) {
-    let user = this.authService.currentUser;
-    let likeItem = {user: user, is_like: islike};
-    this.dataService.like(this.auctionId, likeItem).subscribe(resp => {
-      //console.log('add auction : ', resp);
-    });
-    this.loadOneAuction();
-  }
+   OnDislike() {
+     this.saveLike(false);
+   }
+
+   saveLike(islike: boolean) {
+     let user = this.authService.currentUser;
+     let likeItem = {user: user, is_like: islike};
+     this.dataService.like(this.auctionId, likeItem).subscribe(resp => {
+       //console.log('add auction : ', resp);
+     });
+     this.loadOneAuction();
+   }*/
 
 
   hasError(controlName, validationType) {
