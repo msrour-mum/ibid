@@ -22,6 +22,7 @@ import {JwtInterceptor} from "./util/jwt.interceptor";
 import {AuctionItemComponent} from './auctions/auction/auction-item/auction-item.component';
 import {AuctionListComponent} from './auctions/auction/auction-list/auction-list.component';
 import {AuctionAddComponent} from './auctions/auction/auction-add/auction-add.component';
+import { NoDoubleClickDirective } from './directives/no-double-click.directive';
 
 
 export function initializeApp(appConfig: AppConfig) {
@@ -45,7 +46,8 @@ const routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    NoDoubleClickDirective
   ],
   imports: [
     BrowserModule,

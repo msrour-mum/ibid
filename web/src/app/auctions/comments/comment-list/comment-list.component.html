@@ -1,1 +1,1 @@
-<comment-item *ngFor="let comment of comments" [comment]="comment" ></comment-item>
+<comment-item *ngFor="let comment of comments | async" [comment]="comment" ></comment-item>

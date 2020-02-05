@@ -18,7 +18,7 @@ export class CommentsComponent implements OnInit {
               private dataService: DataService) {
 
     this.commentsService.newCommentEmitter
-      .subscribe((data: number) => this.commentCount += data['value']);
+      .subscribe((data) => this.commentCount = data['value']);
   }
 
   ngOnInit() {

@@ -154,7 +154,8 @@ var search = async function(req, res, next)
        return res.error(500,1000,err.message);
     }
 }
-    
+
+
 module.exports = {
     find,
     findOne,

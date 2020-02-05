@@ -3,7 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 
 
 import {Observable, throwError} from 'rxjs';
-import {catchError, retry, finalize} from 'rxjs/operators';
+import {catchError, retry, finalize, map} from 'rxjs/operators';
 
 import {Comment} from '../models/comments';
 import {AppConfig} from '../config/app.config';
@@ -29,19 +29,27 @@ constructor(private httpClient: HttpClient) {
     
     this.REST_API_SERVER = AppConfig.settings.apiServiceUrl + 'auctions/';
     this.RETRY_COUNT = AppConfig.settings.retryCount;
-    this.options = {params: new HttpParams({fromString: '_page=0&_limit=30'})};
+    
   }
 
-  public listComments(id:string) {
+  public listComments(
+    id:string, 
+    limit:number= 10, 
+    page:number = 0){
+
+    this.options = {params: new HttpParams({fromString: `_page=${page}&_limit=${limit}`})};
+
     return this.httpClient
                .get<Comment[]>(this.REST_API_SERVER + `${id}/comments`, this.options)
-               .pipe(retry(this.RETRY_COUNT), catchError(this.handleError));
+               .pipe( map((result: any) => result.data),
+                 retry(this.RETRY_COUNT), catchError(this.handleError));
   }
 
   save(id:string, comment: Comment): Observable<Comment> {
-  
+
     return this.httpClient.post<Comment>(this.REST_API_SERVER + `${id}/comments`, comment)
       .pipe(
+        map((result: any) => result.data),
         retry(this.RETRY_COUNT),
         catchError(this.handleError)
       );

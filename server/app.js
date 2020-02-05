@@ -51,7 +51,7 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/auctions/:id/comments',commentsRouter);
+//app.use('/auctions/:id/comments',commentsRouter);
 app.use('/auctions', auctionsRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);

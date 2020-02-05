@@ -9,8 +9,7 @@ module.exports = (req, res, next) => {
             const decodedToken = jwt.verify(token, global.gConfig.secret);
 
             if(decodedToken && decodedToken.email) {
-                console.log('decodedToken');
-                console.log(decodedToken);
+              
                 next();
             }
         }

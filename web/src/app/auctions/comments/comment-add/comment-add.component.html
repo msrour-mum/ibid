@@ -1,8 +1,9 @@
-<div class="box">
+<div class="box" [formGroup]="add_comment_form">
     <h6>Add Comments</h6>
       <div class="form-group">
         <label for="comment">Write down what you think about this auction or seller.</label>
-        <textarea #comment_text class="form-control"  rows="3"></textarea>
+        <textarea #comment_text class="form-control" rows="3" formControlName="comment_text"></textarea>
+        <span class="text-danger" *ngIf="add_comment_form.controls['comment_text'].hasError('required') && (add_comment_form.controls['comment_text'].dirty || add_comment_form.controls['comment_text'].touched)">No message provided!</span>
       </div>
-      <button type="submit" (click)="addComment(comment_text.value)" class="btn btn-primary">Post</button>
+      <button noDoubleClick type="submit" (click)="submitForm()" class="btn btn-primary">Post</button>
   </div>
