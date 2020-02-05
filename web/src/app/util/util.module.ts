@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {TimePipe} from './time-ago.pipe';
 import {AddBidDirective} from './add-bid.directive';
+import { StatusDirective } from './status.directive';
 
 //import {NGX_MOMENT_OPTIONS, NgxMomentOptions} from '../utility/pipes/date';
 
@@ -8,9 +9,10 @@ import {AddBidDirective} from './add-bid.directive';
 @NgModule({
   declarations: [
     TimePipe,
-    AddBidDirective
+    AddBidDirective,
+    StatusDirective
   ],
-  exports: [TimePipe, AddBidDirective]
+  exports: [TimePipe, AddBidDirective, StatusDirective]
 })
 export class UtilModule {
 }

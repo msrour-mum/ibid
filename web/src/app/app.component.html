@@ -1,6 +1,6 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#" style="font-family: 'Agency FB'; font-size: 2em">
+    <a class="navbar-brand"[routerLink]="['home']" *ngIf="authService.isAuthenticated" style="font-family: 'Agency FB'; font-size: 2em">
 
 <!--     -->
       <img src="../assets/images/auction-bid.png" height="40px">

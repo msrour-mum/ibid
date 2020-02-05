@@ -1,4 +1,4 @@
-import {Component, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {Auction} from '../../auction';
 import {AuctionsApiService} from '../../auctions-api.service';
@@ -22,7 +22,7 @@ export class AuctionListComponent implements OnInit {
 
   ngOnInit() {
     this.hostUrl = AppConfig.settings.apiServiceUrl;
-    this.lstAuctions = this.dataService.list();
+
 
   }
 

@@ -5,7 +5,10 @@
                                           style="display: inline">
 
                                         <button type="submit" class="btn btn-primary fas fa-plus">
-                                            {{auction.count_like}} </button>
+                                        <img src="../../../assets/images/like.png" width="20px" height="20px">    {{auction.count_like}}
+
+                                        </button>
+
 
 
                                     </form>
@@ -16,7 +19,7 @@
                                     <form [formGroup]="frmDislike" (ngSubmit)="OnDislike()" class="col"
                                           style="display: inline">
                                         <button type="submit" class="btn btn-danger fas fa-minus">
-                                            {{auction.count_dislike}} </button>
+                                            <img src="../../../assets/images/dislike.png" width="20px" height="20px"> {{auction.count_dislike}} </button>
                                     </form>
                                 </span>
 </div>

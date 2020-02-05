@@ -24,6 +24,9 @@ export class RatingComponent implements OnInit {
 
   ngOnInit() {
      this.emitterService.emitter.subscribe(data => this.auction = data);
+    this.auction.count_like =this.auction.count_like | 0;
+    this.auction.count_dislike =this.auction.count_dislike | 0;
+    // this.emitterService.emitValue(data);
   }
 
   OnLike() {
@@ -46,7 +49,9 @@ export class RatingComponent implements OnInit {
   loadOneAuction() {
     this.dataService.loadOne(this.auction._id).subscribe((data: any) => {
       this.auction = data;
-     // this.emitterService.emitValue(data);
+      this.auction.count_like =this.auction.count_like | 0;
+      this.auction.count_dislike =this.auction.count_dislike | 0;
+      // this.emitterService.emitValue(data);
     });
   }
 
