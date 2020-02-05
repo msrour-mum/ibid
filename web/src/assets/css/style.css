@@ -1,6 +1,17 @@
 html{
   font-size: 15px;
 }
+body, html, .container-fluid, .container {
+min-height: 70vh;
+}
+.container-fluid, .container {
+  padding-top: 40px;
+}
+.auction-comments{
+  max-height: 900px;
+  max-width: 20rem;
+  overflow: scroll;
+}
 footer {
     min-height: 200px !important;
     padding: 0 20px;
