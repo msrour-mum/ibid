@@ -3,7 +3,7 @@ var mongoosePaginate = require('mongoose-paginate');
 var mongooseAggregatePaginate = require('mongoose-aggregate-paginate');
 
 var schedule = require('node-schedule');
-var {of} = require('rxjs');
+var {from} = require('rxjs');
 var {max } = require('rxjs/operators');
 
 
@@ -61,13 +61,12 @@ auctionSchema.post('save', async function(auction) {
 
       let winnerBid;
       if(auction.bids != null && auction.bids.length > 0)
-       winnerBid = of(auction.bids).pipe(
-        max(bid => bid.price)
-      );
-
+        from(auction.bids).pipe(
+        max((bid1, bid2) => bid1.price < bid2.price ? -1 : 1)
+      ).subscribe(bid=> winnerBid = bid);
+     
       
-      console.log('winnerBid.user',winnerBid.user);
-      console.log('winnerBid',winnerBid);
+     
       if(!(typeof winnerBid === 'undefined'))
       {
         auction.winner = winnerBid.user;
